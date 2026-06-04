@@ -1,0 +1,46 @@
+<template>
+  <div style="padding: 12px;">
+    <template if:true={cases.length}>
+      <template for:each={cases} for:item="c">
+        <div key={c.Id} style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; margin-bottom: 12px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <strong>{c.CaseNumber}</strong> — {c.Subject}
+                <div style="margin-top: 4px; font-size: 0.9em; color: #444;">
+                    <template if:true={c.Account}>Account: {c.Account.Name}</template>
+                </div>
+            </div>
+            <span style="color: #666; font-size: 0.85em; background: #eee; padding: 2px 6px; border-radius: 4px;">{c.Status}</span>
+          </div>
+          
+          <!-- Inline Note Editor -->
+          <div style="margin-top: 12px; border-top: 1px dashed #eee; padding-top: 10px;">
+              <div style="display: flex; gap: 8px; align-items: flex-start;">
+                  <textarea 
+                      data-id={c.Id}
+                      value={c.noteValue}
+                      oninput={handleNoteChange}
+                      placeholder="Add a note to this case..."
+                      rows="2"
+                      style="flex: 1; border: 1px solid #ccc; border-radius: 4px; padding: 6px 8px; font-family: inherit; font-size: 13px; outline: none; resize: vertical;"
+                  ></textarea>
+                  <button 
+                      data-id={c.Id}
+                      onclick={handleSaveNote}
+                      disabled={c.isSaving}
+                      style="background: #0176d3; color: white; border: none; border-radius: 4px; padding: 6px 12px; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap;">
+                      <template if:true={c.isSaving}>Saving...</template>
+                      <template if:false={c.isSaving}>Save Note</template>
+                  </button>
+              </div>
+          </div>
+        </div>
+      </template>
+    </template>
+    <template if:false={cases.length}>
+        <div style="padding: 16px; text-align: center; color: #666; background: #f8f8f8; border-radius: 8px;">
+            No cases found.
+        </div>
+    </template>
+  </div>
+</template>

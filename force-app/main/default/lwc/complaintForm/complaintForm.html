@@ -1,0 +1,282 @@
+<!-- complaintForm.html -->
+<template>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12 slds-large-size_align_center">
+            
+            <!-- Header -->
+            <div class="slds-card slds-m-bottom_large">
+                <div class="slds-card__header">
+                    <h1 class="slds-card__header-title slds-text-heading_large">
+                        Submit a Civic Complaint
+                    </h1>
+                    <p class="slds-text-body_regular slds-m-top_small">
+                        Report issues in your community and track their resolution
+                    </p>
+                </div>
+            </div>
+
+            <!-- Thank You Screen -->
+            <template if:true={showThankYou}>
+                <div class="slds-card">
+                    <div class="slds-card__body slds-card__body_inner slds-text-align_center">
+                        <lightning-icon icon-name="utility:success" 
+                                      alternative-text="Success" 
+                                      size="large" 
+                                      variant="success"
+                                      class="slds-m-bottom_medium">
+                        </lightning-icon>
+                        
+                        <h2 class="slds-text-heading_medium slds-m-bottom_medium">
+                            Thank You for Your Submission!
+                        </h2>
+                        
+                        <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                            <p class="slds-text-heading_small">Your Tracking Number:</p>
+                            <p class="slds-text-title" style="font-size: 1.5rem; color: #1589ee;">
+                                {trackingNumber}
+                            </p>
+                        </div>
+                        
+                        <p class="slds-text-body_regular slds-m-bottom_medium">
+                            We have received your complaint and will review it shortly. 
+                            You can use the tracking number above to check the status of your complaint.
+                        </p>
+                        
+                        <lightning-button variant="brand" 
+                                        label="Submit Another Complaint"
+                                        onclick={resetForm}>
+                        </lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Main Form -->
+            <template if:false={showThankYou}>
+                <div class="slds-card">
+                    <div class="slds-card__body slds-card__body_inner">
+                        
+                        <!-- Issue Details Section -->
+                        <fieldset class="slds-form-element">
+                            <legend class="slds-form-element__legend slds-text-heading_small">
+                                Issue Details
+                            </legend>
+                            
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <!-- Issue Type -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                    <lightning-combobox name="issueType"
+                                                      label="Issue Type *"
+                                                      placeholder="Select issue type"
+                                                      options={issueTypeOptions}
+                                                      value={formData.issueType}
+                                                      onchange={handleInputChange}
+                                                      data-field="issueType"
+                                                      required>
+                                    </lightning-combobox>
+                                </div>
+                                
+                                <!-- Severity -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                    <lightning-combobox name="severity"
+                                                      label="Priority Level"
+                                                      options={severityOptions}
+                                                      value={formData.severity}
+                                                      onchange={handleInputChange}
+                                                      data-field="severity">
+                                    </lightning-combobox>
+                                </div>
+                                
+                                <!-- Subtype -->
+                                <div class="slds-col slds-size_1-of-1">
+                                    <lightning-input type="text"
+                                                   name="subtype"
+                                                   label="Issue Subtype"
+                                                   placeholder="e.g., Broken pipe, Missing street sign"
+                                                   value={formData.subtype}
+                                                   onchange={handleInputChange}
+                                                   data-field="subtype">
+                                    </lightning-input>
+                                </div>
+                                
+                                <!-- Description -->
+                                <div class="slds-col slds-size_1-of-1">
+                                    <lightning-textarea name="description"
+                                                      label="Description *"
+                                                      placeholder="Please provide a detailed description of the issue"
+                                                      value={formData.description}
+                                                      onchange={handleInputChange}
+                                                      data-field="description"
+                                                      max-length="2000"
+                                                      required>
+                                    </lightning-textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- Location Section -->
+                        <fieldset class="slds-form-element slds-m-top_large">
+                            <legend class="slds-form-element__legend slds-text-heading_small">
+                                Location Information
+                            </legend>
+                            
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <!-- Address Input -->
+                                <div class="slds-col slds-size_1-of-1">
+                                    <lightning-textarea name="address"
+                                                      label="Address / Location"
+                                                      placeholder="Enter address or describe the location"
+                                                      value={formData.address}
+                                                      onchange={handleInputChange}
+                                                      data-field="address">
+                                    </lightning-textarea>
+                                </div>
+                                
+                                <!-- Location Picker Button -->
+                                <div class="slds-col slds-size_1-of-1">
+                                    <lightning-button variant="outline-brand"
+                                                    label="📍 Select Location on Map"
+                                                    onclick={showLocationPicker}>
+                                    </lightning-button>
+                                    <p class="slds-text-body_small slds-m-top_x-small">
+                                        Current location: {locationText}
+                                    </p>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- Contact Information Section -->
+                        <fieldset class="slds-form-element slds-m-top_large">
+                            <legend class="slds-form-element__legend slds-text-heading_small">
+                                Contact Information
+                            </legend>
+                            
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <!-- Name -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                    <lightning-input type="text"
+                                                   name="contactName"
+                                                   label="Your Name *"
+                                                   value={formData.contactName}
+                                                   onchange={handleInputChange}
+                                                   data-field="contactName"
+                                                   required>
+                                    </lightning-input>
+                                </div>
+                                
+                                <!-- Email -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                    <lightning-input type="email"
+                                                   name="contactEmail"
+                                                   label="Email Address *"
+                                                   value={formData.contactEmail}
+                                                   onchange={handleInputChange}
+                                                   data-field="contactEmail"
+                                                   required>
+                                    </lightning-input>
+                                </div>
+                                
+                                <!-- Phone -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                    <lightning-input type="tel"
+                                                   name="contactPhone"
+                                                   label="Phone Number"
+                                                   value={formData.contactPhone}
+                                                   onchange={handleInputChange}
+                                                   data-field="contactPhone">
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- File Upload Section -->
+                        <fieldset class="slds-form-element slds-m-top_large">
+                            <legend class="slds-form-element__legend slds-text-heading_small">
+                                Photos (Optional)
+                            </legend>
+                            
+                            <div class="slds-form-element__control">
+                                <input type="file" 
+                                       accept="image/*" 
+                                       multiple 
+                                       onchange={handleFileUpload}
+                                       class="slds-file-selector__input">
+                                
+                                <!-- Uploaded Files Display -->
+                                <template if:true={hasFiles}>
+                                    <div class="slds-m-top_small">
+                                        <h4 class="slds-text-heading_x-small">Uploaded Files:</h4>
+                                        <ul class="slds-list_dotted">
+                                            <template for:each={uploadedFiles} for:item="file" for:index="index">
+                                                <li key={file.name} class="slds-item">
+                                                    {file.name} 
+                                                    <lightning-button variant="destructive-text"
+                                                                    label="Remove"
+                                                                    data-index={index}
+                                                                    onclick={removeFile}>
+                                                    </lightning-button>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+                                
+                                <p class="slds-text-body_small slds-m-top_x-small">
+                                    You can upload photos to help us understand the issue better. 
+                                    Maximum file size: 25MB per file.
+                                </p>
+                            </div>
+                        </fieldset>
+
+                        <!-- Submit Button -->
+                        <div class="slds-text-align_center slds-m-top_large">
+                            <lightning-button variant="brand"
+                                            label="Submit Complaint"
+                                            onclick={handleSubmit}
+                                            disabled={isSubmitting}
+                                            class="slds-size_1-of-1 slds-medium-size_auto">
+                            </lightning-button>
+                            
+                            <template if:true={isSubmitting}>
+                                <div class="slds-m-top_small">
+                                    <lightning-spinner alternative-text="Submitting..." size="small">
+                                    </lightning-spinner>
+                                    <p class="slds-text-body_small">Submitting your complaint...</p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Location Picker Modal -->
+            <template if:true={showLocationPicker}>
+                <section class="slds-modal slds-fade-in-open" aria-labelledby="modal-heading-01">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">Select Location</h2>
+                            <button class="slds-button slds-button_icon slds-modal__close" 
+                                    onclick={closeLocationPicker}>
+                                <lightning-icon icon-name="utility:close" 
+                                              alternative-text="Close"
+                                              size="small">
+                                </lightning-icon>
+                            </button>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <p class="slds-m-bottom_small">Click on the map to select the exact location of the issue:</p>
+                            <div class="map-container" style="height: 400px; width: 100%;"></div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-button variant="brand" 
+                                            label="Confirm Location" 
+                                            onclick={closeLocationPicker}>
+                            </lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+        </div>
+    </div>
+</template>

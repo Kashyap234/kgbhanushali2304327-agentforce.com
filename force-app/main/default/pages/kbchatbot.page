@@ -1,0 +1,26 @@
+<apex:page >
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Page
+  <!-- End Default Content REMOVE THIS -->
+  <script type='text/javascript'>
+    function initEmbeddedMessaging() {
+        try {
+            embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+
+            embeddedservice_bootstrap.init(
+                '00DgK000007r2MD',
+                'kbdeploymentservice',
+                'https://orgfarm-e5662b0e27-dev-ed.develop.my.site.com/ESWkbdeploymentservice1753966088851',
+                {
+                    scrt2URL: 'https://orgfarm-e5662b0e27-dev-ed.develop.my.salesforce-scrt.com'
+                }
+            );
+        } catch (err) {
+            console.error('Error loading Embedded Messaging: ', err);
+        }
+    };
+</script>
+<script type='text/javascript' src='https://orgfarm-e5662b0e27-dev-ed.develop.my.site.com/ESWkbdeploymentservice1753966088851/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+
+</apex:page>

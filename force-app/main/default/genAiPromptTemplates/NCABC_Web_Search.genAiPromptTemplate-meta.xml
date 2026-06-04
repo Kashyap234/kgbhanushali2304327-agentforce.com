@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>2fmavke5sYDgDNGiGnwNgRjDv9vo/RDngPHmmhVZkpA=_1</activeVersionIdentifier>
+    <description>Retrieves accurate and up-to-date information from authorized NCABC web sources using the Web Content Crawler retriever.</description>
+    <developerName>NCABC_Web_Search</developerName>
+    <masterLabel>NCABC Web Search</masterLabel>
+    <templateVersions>
+        <content>###
+INSTRUCTIONS
+
+1. Analyze the query: Carefully read and understand the user&apos;s question or issue from the QUESTION section.
+2. Search KNOWLEDGE: Review the provided company KNOWLEDGE retrieved via the Web Content Crawler to find relevant information, especially noting any URLs within the content.
+3. Evaluate information: Determine if the available information in the KNOWLEDGE section sufficiently answers the QUESTION.
+4. Formulate response: To generate a reply &lt;generated_response&gt;, follow these rules:
+  a) Identify the most relevant article-chunk(s) from KNOWLEDGE and VERBATIM extract the ID of the article to set as &lt;source_id&gt;.  
+   - If no relevant article is found, set &lt;source_id&gt; to NONE.
+  b) Use the content of the relevant article-chunk to compose a concise and factual response to the QUESTION.  
+   - If the article-chunk contains a URL, always append that URL at the end of the &lt;generated_response&gt;.
+  c) If the QUESTION cannot be answered with the provided KNOWLEDGE, set &lt;source_id&gt; to NONE and &lt;generated_response&gt; to:  
+   &quot;Sorry, I couldn’t find an answer based on the available articles.
+ For further assistance, please contact us at https://www.abc.nc.gov/contact-information..&quot;
+5. Refine and deliver: Ensure your response is polite, professional, and direct.
+6. Review response: Confirm that all steps have been followed and that the reply is derived strictly from the provided KNOWLEDGE.
+###
+KNOWLEDGE:
+{!$EinsteinSearch:Default_ABC_Depth_1_Retriever_1Cx_2MDe1c42922.results}
+###
+QUESTION:
+{!$Input:Query}
+###
+Response:
+
+</content>
+        <inputs>
+            <apiName>Query</apiName>
+            <definition>primitive://String</definition>
+            <referenceName>Input:Query</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>RetrieverIdOrName</apiName>
+            <definition>primitive://String</definition>
+            <referenceName>Input:RetrieverIdOrName</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>GPT_5_Bala_CM_12l_2MD72285698</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/Default_ABC_Depth_1_Retriever_1Cx_2MDe1c42922</definition>
+            <description>Default retriever of semantic search ABC Depth 1</description>
+            <label>Default ABC Depth 1 Retriever</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Query}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:Default_ABC_Depth_1_Retriever_1Cx_2MDe1c42922</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>2fmavke5sYDgDNGiGnwNgRjDv9vo/RDngPHmmhVZkpA=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__knowledgeAnswers</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

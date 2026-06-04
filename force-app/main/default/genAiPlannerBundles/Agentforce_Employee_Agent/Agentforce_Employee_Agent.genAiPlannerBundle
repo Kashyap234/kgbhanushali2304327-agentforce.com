@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Automate common business tasks and assist users in their flow of work. Agentforce Employee Agent can search knowledge articles and other data sources. Customize it further to meet your employees’ business needs.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jgK000001YyxF</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Case_Management_16jgK000001YyxF</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>Opportunity_Management_16jgK000001YyxF</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Case_Management_16jgK000001YyxF</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles filtering and viewing of Cases by status</description>
+        <developerName>Case_Management_16jgK000001YyxF</developerName>
+        <genAiPluginInstructions>
+            <description>When the user wants to review or filter cases, use the &apos;Fetch Case Filters&apos; action to display the multiselect picklist. Wait for the user to select statuses, then call the &apos;Display Cases&apos; action.</description>
+            <developerName>instruction_1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction 1</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Fetch_Case_Filters_179gK000001fb33</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Fetch_Case_Filters_179gK000001fb33</fullName>
+            <description>Accepts multiselect case status filters and returns matching cases as JSON</description>
+            <developerName>Fetch_Case_Filters_179gK000001fb33</developerName>
+            <invocationTarget>CaseFilterAction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Fetch_Case_Filters</localDeveloperName>
+            <masterLabel>Fetch Case Filters</masterLabel>
+        </localActions>
+        <localDeveloperName>Case_Management</localDeveloperName>
+        <masterLabel>Case Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Give the details of case when user asked about the case.</scope>
+    </localTopics>
+    <localTopics>
+        <fullName>Opportunity_Management_16jgK000001YyxF</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles filtering and viewing of Opportunities by stage</description>
+        <developerName>Opportunity_Management_16jgK000001YyxF</developerName>
+        <genAiPluginInstructions>
+            <description>When the user wants to review opportunities, use the &apos;Fetch Opportunity Filters&apos; action. Wait for stage selections, then call &apos;Display Opportunities&apos;.</description>
+            <developerName>instruction_1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction 1</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Fetch_Opportunity_Filters_179gK000001fb9V</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Fetch_Opportunity_Filters_179gK000001fb9V</fullName>
+            <description>Accepts multiselect opportunity stage filters and returns matching opportunities</description>
+            <developerName>Fetch_Opportunity_Filters_179gK000001fb9V</developerName>
+            <invocationTarget>OppFilterAction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Fetch_Opportunity_Filters</localDeveloperName>
+            <masterLabel>Fetch Opportunity Filters</masterLabel>
+        </localActions>
+        <localDeveloperName>Opportunity_Management</localDeveloperName>
+        <masterLabel>Opportunity Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Give the details of opportunities when user asked about the opportunities.</scope>
+    </localTopics>
+    <masterLabel>Agentforce Employee Agent</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jgK000001YyxF</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jgK000001YyxF</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+</GenAiPlannerBundle>

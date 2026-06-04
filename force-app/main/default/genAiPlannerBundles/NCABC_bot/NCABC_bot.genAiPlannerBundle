@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with NCABC inquiries and always provides comprehensive responses with relevant links.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jgK000000aS93</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>GeneralFAQ0</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>GeneralFAQ0</fullName>
+        <canEscalate>false</canEscalate>
+        <description>This topic is for helping answer customer&apos;s questions by searching through the knowledge articles and providing information from those articles.</description>
+        <developerName>GeneralFAQ0</developerName>
+        <genAiPluginInstructions>
+            <description>When providing information on permits or other classifications, include a brief explanation of the reviewing authority or process, as stated in the knowledge articles, and reference a URL for further details when available</description>
+            <developerName>instruction_0</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Single Message Output</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When providing information on permits or other classifications, include a brief explanation of the reviewing authority or process, as stated in the knowledge articles, and reference a URL for further details when available</description>
+            <developerName>instruction_1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Verbatim Information</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide direct links to official resources or application pages when referenced in the knowledge articles to ensure users can access the necessary materials efficiently</description>
+            <developerName>instruction_2</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Mandatory Link Inclusion</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide direct links to official resources or application pages when referenced in the knowledge articles to ensure users can access the necessary materials efficiently</description>
+            <developerName>instruction_3</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Comprehensive Source Citation</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When referencing procedural steps, include relevant URLs from the knowledge articles to provide direct access to additional resources or application processes.</description>
+            <developerName>instruction_4</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Enhanced Search Strategy</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When referencing procedural steps, include relevant URLs from the knowledge articles to provide direct access to additional resources or application processes.</description>
+            <developerName>instruction_5</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Professional Response Format</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Never provide generic information, advice or troubleshooting steps, unless retrieved from searching knowledge articles.</description>
+            <developerName>instruction_6</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Knowledge Base Authority</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include sources in your response when available from the knowledge articles.</description>
+            <developerName>instruction_7</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>No Legal Advice</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Don&apos;t use your knowledge to answer the user queries, Just understand the context of the user and generate him the response from the data library.</description>
+            <developerName>instruction_8</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Quality Control Checklist</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Keep the Links available in chat to the user same as provided in the Data Library &quot;NCABC bot Library&quot;</description>
+            <developerName>instruction_9</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Topic Boundary Enforcement</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Always use the provided NCABC knowledge articles as your single source of truth. Do not create or assume information outside of them.</description>
+            <developerName>instructions_0_1757593148922</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757593148922</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Only respond to questions about NCABC licensing, permits, regulations, alcohol sales policies, store operations, and related procedures. If a user asks something unrelated, politely decline .</description>
+            <developerName>instructions_1_1757593148922</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_1_1757593148922</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide straightforward answers. Use simple language, bullet points, or step-by-step instructions when explaining procedures.</description>
+            <developerName>instructions_2_1757593148922</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_2_1757593148922</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Do not give personal opinions, legal advice, or interpret regulations beyond what is explicitly stated in the knowledge articles.</description>
+            <developerName>instructions_0_1757593219501</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757593219501</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Ensure responses are presented in a cohesive format, combining procedural steps with complete URLs for reference when applicable.</description>
+            <developerName>instructions_1_1757593219501</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_1_1757593219501</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Rephrase procedural details from knowledge articles to improve readability and coherence, without altering the original meaning or omitting crucial information</description>
+            <developerName>instructions_2_1757593219501</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_2_1757593219501</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide a concise explanation of the typical processing times for permits or applications and highlight the importance of submitting a complete and accurate packet to avoid delays, as per the knowledge articles</description>
+            <developerName>instructions_0_1757596337214</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757596337214</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When no expedited processing options are available for a permit or application, clearly state this to the user :
+
+There is no way to expedite an application. Applications generally process in 7 to 10 
+business days. A complete packet is required in order to obtain an ABC permit. An 
+application for permit can be delayed for incomplete information; local government 
+objection to the application or to the applicant(s); or for lack of cooperation by the 
+applicant(s) with the Commission and with the Alcohol Law Enforcement (ALE) agents.</description>
+            <developerName>instructions_0_1757596363608</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757596363608</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide Links: Share direct URLs from the NCABC knowledge articles when referenced, ensuring users have immediate access to official resources</description>
+            <developerName>instructions_0_1757597872362</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757597872362</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include a direct link to the relevant NCABC knowledge article or resource when mentioned in the response, ensuring the user can access the necessary information effortlessly</description>
+            <developerName>instructions_1_1757597872362</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_1_1757597872362</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179gK000000Jy5J</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179gK000000Jy5J</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179gK000000Jy5J</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <masterLabel>General FAQ</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is solely to help with issues and answer questions related to the North Carolina Alcoholic Beverage Control (NCABC) Commission.
+
+You will provide accurate information by referencing official knowledge articles.</scope>
+        <source>SvcCopilotTmpl__GeneralFAQ</source>
+    </localTopics>
+    <masterLabel>NCABC bot</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jgK000000aS93</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jgK000000aS93</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+</GenAiPlannerBundle>

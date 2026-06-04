@@ -1,0 +1,160 @@
+/* complaintForm.css */
+
+.map-container {
+    border: 1px solid #d8dde6;
+    border-radius: 4px;
+    position: relative;
+}
+
+.file-upload-area {
+    border: 2px dashed #d8dde6;
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+    background-color: #f3f3f3;
+    transition: all 0.3s ease;
+}
+
+.file-upload-area:hover {
+    border-color: #1589ee;
+    background-color: #f8f9fa;
+}
+
+.file-upload-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d8dde6;
+    border-radius: 4px;
+}
+
+.uploaded-file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e5e5e5;
+}
+
+.location-display {
+    background-color: #f8f9fa;
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #d8dde6;
+    margin-top: 0.5rem;
+}
+
+.priority-indicator {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.priority-low {
+    background-color: #4bca81;
+    color: white;
+}
+
+.priority-medium {
+    background-color: #ffb75d;
+    color: white;
+}
+
+.priority-high {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.priority-critical {
+    background-color: #dc3545;
+    color: white;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+
+.form-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-left: 4px solid #1589ee;
+    background-color: #fafafa;
+}
+
+.thank-you-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.tracking-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1589ee;
+    background-color: #f0f8ff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    border: 2px solid #1589ee;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .submit-button {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+    
+    .map-container {
+        height: 300px !important;
+    }
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.error-message {
+    color: #d83333;
+    background-color: #fef7f7;
+    border: 1px solid #fecaca;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+.success-message {
+    color: #059669;
+    background-color: #f0fdf4;
+    border: 1px solid #86efac;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}

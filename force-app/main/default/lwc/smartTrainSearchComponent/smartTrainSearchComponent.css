@@ -1,0 +1,62 @@
+/* smartTrainSearchComponent.css */
+.popular-route-btn {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.popular-route-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.train-result-card {
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.train-result-card:hover {
+    border-color: #1589ee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.journey-point {
+    text-align: left;
+}
+
+.journey-duration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.coach-availability-item {
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.availability-good .coach-availability-item {
+    background-color: #e8f5e8;
+    border-left: 4px solid #2e844a;
+}
+
+.availability-smart .coach-availability-item {
+    background-color: #e8f4fd;
+    border-left: 4px solid #1589ee;
+}
+
+.availability-low .coach-availability-item {
+    background-color: #fef7e8;
+    border-left: 4px solid #fe9339;
+}
+
+.availability-none .coach-availability-item {
+    background-color: #fdf2f2;
+    border-left: 4px solid #c23934;
+}

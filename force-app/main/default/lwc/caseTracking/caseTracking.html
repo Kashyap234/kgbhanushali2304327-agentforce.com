@@ -1,0 +1,173 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-card__header">
+            <h1 class="slds-card__header-title slds-text-heading_large">
+                Track Your Complaint
+            </h1>
+            <p class="slds-text-body_regular">
+                Enter your tracking number to check the status of your complaint
+            </p>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Search Form -->
+            <template if:false={showDetails}>
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning-input
+                            type="text"
+                            label="Tracking Number"
+                            placeholder="e.g., CC240815-1234"
+                            value={trackingNumber}
+                            onchange={handleTrackingNumberChange}
+                            class="tracking-input">
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-text-align_center">
+                        <lightning-button
+                            variant="brand"
+                            label="Track Complaint"
+                            onclick={handleTrack}
+                            disabled={loading}
+                            class="slds-m-top_medium">
+                        </lightning-button>
+                    </div>
+                </div>
+
+                <template if:true={loading}>
+                    <div class="slds-text-align_center slds-m-top_medium">
+                        <lightning-spinner alternative-text="Searching..." size="small">
+                        </lightning-spinner>
+                        <p class="slds-text-body_small">Searching for your complaint...</p>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Case Details -->
+            <template if:true={showDetails}>
+                <div class="case-details">
+                    <!-- Header with basic info -->
+                    <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_large">
+                        <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-box slds-theme_shade">
+                                <h2 class="slds-text-heading_medium slds-m-bottom_small">
+                                    Complaint #{caseData.trackingNumber}
+                                </h2>
+                                
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                        <p><strong>Status:</strong> 
+                                            <span class={statusClass}>{caseData.status}</span>
+                                        </p>
+                                        <p><strong>Issue Type:</strong> {caseData.issueType}</p>
+                                        <p><strong>Priority:</strong> 
+                                            <span class={severityClass}>{caseData.severity}</span>
+                                        </p>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                        <p><strong>Submitted:</strong> {caseData.createdDate}</p>
+                                        <p><strong>Last Updated:</strong> {caseData.lastModified}</p>
+                                        <p><strong>Expected Resolution:</strong> {caseData.slaDate}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="slds-m-bottom_large">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Description</h3>
+                        <div class="slds-box">
+                            <p>{caseData.description}</p>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <template if:true={caseData.address}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Location</h3>
+                            <div class="slds-box">
+                                <p>{caseData.address}</p>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Work Orders -->
+                    <template if:true={hasWorkOrders}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Work Progress</h3>
+                            <template for:each={caseData.workOrders} for:item="workOrder">
+                                <div key={workOrder.id} class="slds-box slds-m-bottom_small">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                            <p><strong>Status:</strong> {workOrder.status}</p>
+                                            <template if:true={workOrder.technician}>
+                                                <p><strong>Technician:</strong> {workOrder.technician}</p>
+                                            </template>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                            <template if:true={workOrder.scheduledTime}>
+                                                <p><strong>Scheduled:</strong> {workOrder.scheduledTime}</p>
+                                            </template>
+                                            <template if:true={workOrder.completionTime}>
+                                                <p><strong>Completed:</strong> {workOrder.completionTime}</p>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <template if:true={workOrder.notes}>
+                                        <div class="slds-m-top_small">
+                                            <p><strong>Notes:</strong> {workOrder.notes}</p>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <!-- Photos -->
+                    <template if:true={hasPhotos}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Photos</h3>
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <template for:each={caseData.photos} for:item="photo">
+                                    <div key={photo.id} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                        <img src={photo.url} alt={photo.title} class="photo-thumbnail">
+                                        <p class="slds-text-body_small slds-text-align_center">{photo.title}</p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Activity Timeline -->
+                    <template if:true={hasActionLogs}>
+                        <div class="slds-m-bottom_large">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Activity Timeline</h3>
+                            <ul class="slds-timeline">
+                                <template for:each={caseData.actionLogs} for:item="log">
+                                    <li key={log.id} class="slds-timeline__item">
+                                        <span class="slds-assistive-text">{log.actionType}</span>
+                                        <div class="slds-timeline__item_details">
+                                            <h4 class="slds-timeline__item-title">{log.actionType}</h4>
+                                            <p>{log.description}</p>
+                                            <p class="slds-text-body_small slds-text-color_weak">{log.createdDate}</p>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+
+                    <!-- Actions -->
+                    <div class="slds-text-align_center slds-m-top_large">
+                        <lightning-button
+                            variant="outline-brand"
+                            label="Track Another Complaint"
+                            onclick={handleNewSearch}>
+                        </lightning-button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

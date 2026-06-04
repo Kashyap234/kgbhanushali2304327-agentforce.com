@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>An intelligent agent that assists users in creating new accounts in Salesforce. The agent can understand natural language requests like &quot;I want to create an account&quot; and guide users through the account creation process by collecting necessary information such as account name, type, industry, and other required fields. It streamlines the account creation workflow and ensures data consistency.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jgK000000ZITV</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Account_Creation_16jgK000000ZITV</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>GeneralFAQ</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>Search_W3Schools_Tutorials_16jgK000000ZITV</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Account_Creation_16jgK000000ZITV</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Handles user requests to create new Salesforce accounts by parsing input for account details and guiding users through the process.</description>
+        <developerName>Account_Creation_16jgK000000ZITV</developerName>
+        <genAiPluginInstructions>
+            <description>Parse user input to extract account details such as company name, industry, and type.</description>
+            <developerName>instruction_0_1756817634363</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_0_1756817634363</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Guide users through completing all required fields for account creation.</description>
+            <developerName>instruction_1_1756817634363</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_1_1756817634363</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Validate the provided data for accuracy and completeness before proceeding with account creation.</description>
+            <developerName>instruction_2_1756817634363</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_2_1756817634363</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide confirmation and outline the next steps after successfully creating the account.</description>
+            <developerName>instruction_3_1756817634363</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_3_1756817634363</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Create_Account_179gK000000SdbG</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Create_Account_179gK000000SdbG</fullName>
+            <description>Creates a new account from bot input</description>
+            <developerName>Create_Account_179gK000000SdbG</developerName>
+            <invocationTarget>AccountCreationService</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Create_Account</localDeveloperName>
+            <masterLabel>Create Account</masterLabel>
+            <progressIndicatorMessage>wait we are loading.........</progressIndicatorMessage>
+            <source>Create_Account</source>
+        </localActions>
+        <localDeveloperName>Account_Creation</localDeveloperName>
+        <masterLabel>Account Creation</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is only to assist users in creating new Salesforce accounts by extracting necessary details, validating the input, and confirming the account creation process.</scope>
+    </localTopics>
+    <localTopics>
+        <fullName>Search_W3Schools_Tutorials_16jgK000000ZITV</fullName>
+        <canEscalate>false</canEscalate>
+        <description>You are a helpful assistant that helps users learn programming and web development using W3Schools tutorial content.</description>
+        <developerName>Search_W3Schools_Tutorials_16jgK000000ZITV</developerName>
+        <genAiPluginInstructions>
+            <description>User asks about HTML, CSS, JavaScript, Python, SQL, Java, React, or other programming topics
+   → Use &quot;Search W3Schools Tutorials&quot; with appropriate keyword and category</description>
+            <developerName>instruction_0_1759155558966</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_0_1759155558966</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>User asks what tutorials are available
+   → Use &quot;Get Available Categories&quot; to show options</description>
+            <developerName>instruction_1_1759155558966</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_1_1759155558966</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>User wants to know how much content exists
+   → Use &quot;Get Category Statistics&quot;</description>
+            <developerName>instruction_2_1759155558966</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_2_1759155558966</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>User provides a specific W3Schools URL
+   → Use &quot;Get Tutorial by URL&quot;</description>
+            <developerName>instruction_3_1759155558966</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_3_1759155558966</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Search_Website_Data_179gK000000SdbH</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Search_Website_Data_179gK000000SdbH</fullName>
+            <description>Search W3Schools tutorial data by keyword, category, or topic</description>
+            <developerName>Search_Website_Data_179gK000000SdbH</developerName>
+            <invocationTarget>WebsiteDataSearchAction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Search_Website_Data</localDeveloperName>
+            <masterLabel>Search Website Data</masterLabel>
+            <source>Search_Website_Data</source>
+        </localActions>
+        <localDeveloperName>Search_W3Schools_Tutorials</localDeveloperName>
+        <masterLabel>Search W3Schools Tutorials</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>- Search and retrieve W3Schools tutorials on various programming topics
+- Provide code examples from tutorials
+- Help users find specific tutorials by category or keyword
+- Explain programming concepts using the tutorial content</scope>
+    </localTopics>
+    <localTopics>
+        <fullName>GeneralFAQ</fullName>
+        <canEscalate>false</canEscalate>
+        <description>This topic is for helping answer customer&apos;s questions by searching through the knowledge articles and providing information from those articles. The questions can be about the company and its products, policies or business procedures</description>
+        <developerName>GeneralFAQ</developerName>
+        <genAiPluginInstructions>
+            <description>If the customer&apos;s question is too vague or general, ask for more details and clarification to give a better answer.</description>
+            <developerName>instruction_0_1756825298122</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_0_1756825298122</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you are unable to help the customer even after asking clarifying questions, ask if they want to escalate this issue to a live agent.</description>
+            <developerName>instruction_1_1756825298122</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_1_1756825298122</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If you are unable to answer customer&apos;s questions, ask if they want to escalate this issue to a live agent.</description>
+            <developerName>instruction_2_1756825298122</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_2_1756825298122</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Never provide generic information, advice or troubleshooting steps, unless retrieved from searching knowledge articles.</description>
+            <developerName>instruction_3_1756825298122</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_3_1756825298122</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include sources in your response when available from the knowledge articles, otherwise proceed without them.</description>
+            <developerName>instruction_4_1756825298122</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_4_1756825298122</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>AnswerQuestionsWithKnowledge_179gK000000IIjF</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>AnswerQuestionsWithKnowledge_179gK000000IIjF</fullName>
+            <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+            <developerName>AnswerQuestionsWithKnowledge_179gK000000IIjF</developerName>
+            <invocationTarget>streamKnowledgeSearch</invocationTarget>
+            <invocationTargetType>standardInvocableAction</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+            <masterLabel>Answer Questions with Knowledge</masterLabel>
+            <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+            <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+        </localActions>
+        <masterLabel>General FAQ</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Your job is solely to help with issues and answer questions about the company, its products, procedures, or policies by searching knowledge articles.</scope>
+        <source>SvcCopilotTmpl__GeneralFAQ</source>
+    </localTopics>
+    <masterLabel>Account Creation Assistant</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jgK000000ZITV</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jgK000000ZITV</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+</GenAiPlannerBundle>

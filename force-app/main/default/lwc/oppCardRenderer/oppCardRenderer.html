@@ -1,0 +1,198 @@
+<template>
+    <div class="opp-renderer-container">
+
+        <!-- ── Loading state ── -->
+        <template if:true={isLoading}>
+            <div class="loading-state">
+                <div class="spinner">
+                    <div class="spinner-ring"></div>
+                </div>
+                <p class="loading-text">Fetching opportunities…</p>
+            </div>
+        </template>
+
+        <!-- ── Error state ── -->
+        <template if:true={hasError}>
+            <div class="error-state">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <p class="error-msg">{errorMessage}</p>
+            </div>
+        </template>
+
+        <!-- ── Main content ── -->
+        <template if:true={showContent}>
+
+            <!-- Result header bar -->
+            <div class="result-header">
+                <div class="result-header-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                    </svg>
+                    <span class="result-count-text">
+                        {totalCount} {recordLabel} found
+                    </span>
+                </div>
+                <!-- Stage filter chips (read-only summary) -->
+                <div class="filter-summary">
+                    <template for:each={activeStages} for:item="s">
+                        <span key={s} class="filter-chip">{s}</span>
+                    </template>
+                </div>
+            </div>
+
+            <!-- ── Empty state ── -->
+            <template if:true={isEmpty}>
+                <div class="empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        <line x1="11" y1="8" x2="11" y2="14"/>
+                        <line x1="8" y1="11" x2="14" y2="11"/>
+                    </svg>
+                    <p class="empty-title">No opportunities found</p>
+                    <p class="empty-subtitle">Try selecting different stages in the filter above.</p>
+                </div>
+            </template>
+
+            <!-- ── Opportunity cards list ── -->
+            <template if:false={isEmpty}>
+                <div class="opp-list">
+                    <template for:each={opportunities} for:item="opp">
+                        <div key={opp.Id} class={opp.cardClass}>
+
+                            <!-- Card header -->
+                            <div class="card-header">
+                                <div class="card-header-left">
+                                    <!-- Stage badge -->
+                                    <span class="stage-badge" style={opp.badgeStyle}>
+                                        {opp.StageName}
+                                    </span>
+                                    <!-- Close date indicator -->
+                                    <span class={opp.closeDateClass} title="Close date">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                            <line x1="16" y1="2" x2="16" y2="6"/>
+                                            <line x1="8" y1="2" x2="8" y2="6"/>
+                                            <line x1="3" y1="10" x2="21" y2="10"/>
+                                        </svg>
+                                        {opp.formattedCloseDate}
+                                    </span>
+                                </div>
+                                <!-- Amount -->
+                                <span class="opp-amount">{opp.formattedAmount}</span>
+                            </div>
+
+                            <!-- Opportunity name -->
+                            <p class="opp-name">{opp.Name}</p>
+
+                            <!-- Account name -->
+                            <template if:true={opp.accountName}>
+                                <p class="opp-account">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                        <polyline points="9 22 9 12 15 12 15 22"/>
+                                    </svg>
+                                    {opp.accountName}
+                                </p>
+                            </template>
+
+                            <!-- Probability bar (only for non-closed records) -->
+                            <template if:true={opp.showProbability}>
+                                <div class="prob-row">
+                                    <span class="prob-label">Probability</span>
+                                    <div class="prob-bar-track">
+                                        <div
+                                            class="prob-bar-fill"
+                                            style={opp.probBarStyle}
+                                        ></div>
+                                    </div>
+                                    <span class="prob-value">{opp.Probability}%</span>
+                                </div>
+                            </template>
+
+                            <!-- Closed Won / Lost ribbon -->
+                            <template if:true={opp.isClosedWon}>
+                                <div class="ribbon ribbon--won">Won</div>
+                            </template>
+                            <template if:true={opp.isClosedLost}>
+                                <div class="ribbon ribbon--lost">Lost</div>
+                            </template>
+
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Overflow notice -->
+                <template if:true={showOverflow}>
+                    <p class="overflow-note">
+                        Showing first {opportunities.length} of {totalCount} records.
+                        Refine your stage selection to narrow results.
+                    </p>
+                </template>
+            </template>
+
+            <!-- ────────────────────────────────────────────────────────────────
+                 Editable notes / next-action text field
+                 Whatever the user types here is dispatched via `valuechange`
+                 as `userNotes` and becomes the input for the following agent
+                 action in the conversation flow.
+             ──────────────────────────────────────────────────────────────── -->
+            <div class="notes-section">
+                <label class="notes-label" for="notesField">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                    Notes / next steps
+                    <span class="notes-hint">(this text will be passed to the next action)</span>
+                </label>
+                <textarea
+                    id="notesField"
+                    class={notesAreaClass}
+                    value={notesValue}
+                    placeholder="e.g. Follow up with Acme on the Proposal, schedule demo for Globex…"
+                    rows="3"
+                    oninput={handleNotesInput}
+                    onfocus={handleNotesFocus}
+                    onblur={handleNotesBlur}
+                ></textarea>
+                <div class="notes-footer">
+                    <span class="char-count">{charCountText}</span>
+                    <template if:true={notesValue}>
+                        <button class="notes-send-btn" onclick={handleNotesSend} type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
+                            Send to agent
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+        </template>
+    </div>
+</template>

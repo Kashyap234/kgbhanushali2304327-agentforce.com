@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <botMlDomain>
+        <label>balabot</label>
+        <mlIntents>
+            <developerName>Are_ABC_stores_open_on_Sundays_or_holidays</developerName>
+            <label>Are ABC stores open on Sundays or holidays?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>balaintentset.Are_ABC_stores_open_on_Sundays_or_holidays</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Can_I_purchase_spirituous_liquor_in_grocery_stores_or_other_retail_outlets</developerName>
+            <label>Can I purchase spirituous liquor in grocery stores or other retail outlets?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>balaintentset.Can_I_purchase_spirituous_liquor_in_grocery_stores_or_other_retail_outlets</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_can_I_find_an_ABC_store_near_me</developerName>
+            <label>How can I find an ABC store near me?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>balaintentset.How_can_I_find_an_ABC_store_near_me</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_can_I_place_a_special_order_for_a_product_not_available_in_my_local_ABC_stor</developerName>
+            <label>How can I place a special order for a product not available in my local ABC stor</label>
+            <relatedMlIntents>
+                <relatedMlIntent>balaintentset.How_can_I_place_a_special_order_for_a_product_not_available_in_my_local_ABC_stor</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_many_ABC_stores_are_there_in_North_Carolina</developerName>
+            <label>How many ABC stores are there in North Carolina?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>balaintentset.How_many_ABC_stores_are_there_in_North_Carolina</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Is_my_local_ABC_store_open_today</developerName>
+            <label>Is my local ABC store open today?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>balaintentset.Is_my_local_ABC_store_open_today</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <name>balabot</name>
+    </botMlDomain>
+    <botSource>None</botSource>
+    <botUser>kgbhanushali2304327@agentforce.com</botUser>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingEndUser</SObjectType>
+            <fieldName>MessagingEndUser.ContactId</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingEndUser ContactId</description>
+        <developerName>ContactId</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Contact Id</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingSession</SObjectType>
+            <fieldName>MessagingSession.MessagingEndUserId</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingEndUser Id</description>
+        <developerName>EndUserId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>End User Id</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingSession</SObjectType>
+            <fieldName>MessagingSession.Id</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingSession Id</description>
+        <developerName>RoutableId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>Routable Id</label>
+    </contextVariables>
+    <defaultOutboundFlow>Route_from_balabot</defaultOutboundFlow>
+    <description>A bot from scratch.</description>
+    <label>balabot</label>
+    <logPrivateConversationData>false</logPrivateConversationData>
+    <richContentEnabled>true</richContentEnabled>
+    <sessionTimeout>0</sessionTimeout>
+    <type>Bot</type>
+</Bot>

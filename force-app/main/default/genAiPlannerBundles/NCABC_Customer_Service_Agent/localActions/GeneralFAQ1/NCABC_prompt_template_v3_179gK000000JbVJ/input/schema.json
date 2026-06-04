@@ -1,0 +1,22 @@
+{
+  "required" : [ "Input:chunks", "Input:query" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "Input:chunks" : {
+      "title" : "chunks",
+      "description" : "user's question/query",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "Input:query" : {
+      "title" : "query",
+      "description" : "user's question/query",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

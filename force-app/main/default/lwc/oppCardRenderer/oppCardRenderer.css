@@ -1,0 +1,423 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   oppCardRenderer.css
+   Scoped styles for the Agentforce output renderer that shows Opportunity cards
+   plus an editable notes / next-steps textarea.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.opp-renderer-container {
+    font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 0.875rem 1rem 1rem;
+    background: #ffffff;
+    border-radius: 0.75rem;
+    border: 1px solid #e0e5ee;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    max-width: 580px;
+}
+
+/* ── Loading ── */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    gap: 0.75rem;
+}
+
+.spinner {
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+}
+
+.spinner-ring {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #e0e5ee;
+    border-top-color: #3b5bdb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 0.875rem;
+    color: #6b7a99;
+    margin: 0;
+}
+
+/* ── Error ── */
+.error-state {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #fff5f5;
+    border: 1px solid #fecaca;
+    border-radius: 0.5rem;
+    color: #c53030;
+    font-size: 0.875rem;
+}
+
+.error-msg { margin: 0; }
+
+/* ── Result header bar ── */
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid #eef0f7;
+}
+
+.result-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: #4b5680;
+}
+
+.result-count-text {
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+/* Stage filter chips (read-only summary in header) */
+.filter-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.filter-chip {
+    display: inline-block;
+    background: #f0f4ff;
+    color: #3b5bdb;
+    border: 1px solid #c5d0f5;
+    border-radius: 2rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* ── Empty state ── */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    gap: 0.5rem;
+    color: #9aa5be;
+}
+
+.empty-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #4b5680;
+    margin: 0;
+}
+
+.empty-subtitle {
+    font-size: 0.8125rem;
+    color: #9aa5be;
+    margin: 0;
+    text-align: center;
+}
+
+/* ── Opportunity card list ── */
+.opp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ── Individual Opportunity card ── */
+.opp-card {
+    position: relative;
+    border: 1.5px solid #e0e5ee;
+    border-radius: 0.625rem;
+    padding: 0.75rem 0.875rem;
+    background: #fafbfd;
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.opp-card:hover {
+    border-color: #b8c2e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+/* Subtle left accent border */
+.opp-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #94a3b8;
+    border-radius: 0.625rem 0 0 0.625rem;
+}
+
+/* Won / Lost card variants */
+.opp-card--won {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+}
+
+.opp-card--won::before {
+    background: #22c55e;
+}
+
+.opp-card--lost {
+    border-color: #fecaca;
+    background: #fff5f5;
+    opacity: 0.75;
+}
+
+.opp-card--lost::before {
+    background: #ef4444;
+}
+
+/* Card header row: stage badge + close date | amount */
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.375rem;
+}
+
+.card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Stage badge (colour injected inline from STAGE_COLORS) */
+.stage-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2rem;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+/* Close date */
+.close-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.75rem;
+    color: #6b7a99;
+}
+
+.close-date--overdue {
+    color: #c53030;
+    font-weight: 600;
+}
+
+/* Formatted amount */
+.opp-amount {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #1a2340;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Opp name */
+.opp-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1a2340;
+    margin: 0 0 0.25rem;
+    line-height: 1.35;
+    /* Truncate long names */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Account name */
+.opp-account {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    color: #6b7a99;
+    margin: 0 0 0.5rem;
+}
+
+/* Probability bar */
+.prob-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.375rem;
+}
+
+.prob-label {
+    font-size: 0.7rem;
+    color: #9aa5be;
+    width: 5.5rem;
+    flex-shrink: 0;
+}
+
+.prob-bar-track {
+    flex: 1;
+    height: 5px;
+    background: #e0e5ee;
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+.prob-bar-fill {
+    height: 100%;
+    border-radius: 2rem;
+    transition: width 0.5s ease;
+}
+
+.prob-value {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #4b5680;
+    width: 2rem;
+    text-align: right;
+}
+
+/* Won / Lost ribbon (absolute, top-right corner) */
+.ribbon {
+    position: absolute;
+    top: 0.5rem;
+    right: -0.25rem;
+    padding: 0.125rem 0.6rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.ribbon--won {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.ribbon--lost {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+/* Overflow notice */
+.overflow-note {
+    font-size: 0.75rem;
+    color: #9aa5be;
+    font-style: italic;
+    margin: 0.25rem 0 0.625rem;
+    text-align: center;
+}
+
+/* ── Notes / next-steps textarea section ── */
+.notes-section {
+    border-top: 1px solid #eef0f7;
+    padding-top: 0.75rem;
+    margin-top: 0.125rem;
+}
+
+.notes-label {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #3d4761;
+    margin-bottom: 0.4rem;
+}
+
+.notes-hint {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #9aa5be;
+    font-style: italic;
+    flex: 1;
+}
+
+.notes-textarea {
+    width: 100%;
+    border: 1.5px solid #dde2ef;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.625rem;
+    font-family: inherit;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: #1a2340;
+    background: #fafbfd;
+    resize: vertical;
+    min-height: 72px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.notes-textarea::placeholder {
+    color: #b0bacc;
+}
+
+.notes-textarea--focused {
+    border-color: #3b5bdb;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
+}
+
+/* Notes footer: char count + send button */
+.notes-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.375rem;
+    min-height: 1.25rem;
+}
+
+.char-count {
+    font-size: 0.7rem;
+    color: #9aa5be;
+}
+
+.notes-send-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.75rem;
+    background: #3b5bdb;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+    font-family: inherit;
+}
+
+.notes-send-btn:hover {
+    background: #2c43b5;
+    transform: translateY(-1px);
+}
+
+.notes-send-btn:active {
+    transform: translateY(0);
+}

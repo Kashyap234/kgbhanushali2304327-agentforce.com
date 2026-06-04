@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries about NC ABC Stores and permits</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jgK000000naLh</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>GeneralFAQ_16jgK000000naLh</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>GeneralFAQ_16jgK000000naLh</fullName>
+        <canEscalate>false</canEscalate>
+        <description>This topic handles user queries related to NCABC licensing, permits, regulations, alcohol sales policies, and store operations.
+It retrieves authoritative information from both the internal NCABC Knowledge Library and the indexed NCABC web content.
+Responses are chosen dynamically based on content confidence, relevance, and source completeness — not just hierarchy.
+
+All answers:
+
+Remain factual and policy-based
+
+Include clickable, verifiable NCABC source links
+
+May include pricing and payment URLs when applicable
+
+Never escalate to live agents
+
+Only use trusted NCABC data</description>
+        <developerName>GeneralFAQ_16jgK000000naLh</developerName>
+        <genAiPluginInstructions>
+            <description>Analyze the Query
+
+Carefully read and interpret the user’s request to identify the relevant NCABC policy, permit, or regulation area.
+Detect the intent (e.g., permit type, renewal, payment, law clarification, or store operation).</description>
+            <developerName>avoidgenericinformation</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>avoid-generic-information</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Invoke both retrievers in parallel:
+
+Knowledge_Article_179gK000000V1sf → searches internal NCABC knowledge data
+
+NCABC_Web_Search_179gK000000V1sf → searches official NCABC websites</description>
+            <developerName>includearticlesources</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>include-article-sources</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Compare the confidence or relevance of the two retrieved responses.
+
+Use the following rule:
+
+If (WebSearch.confidence - Knowledge.confidence &gt;= 0.2):
+    Use NCABC_Web_Search_179gK000000V1sf result
+Else:
+    Use Knowledge_Article_179gK000000V1sf result
+
+
+This ensures the Agent selects the most relevant and trustworthy source.
+
+If both are equally confident (difference &lt; 0.2), prefer the Knowledge Article for policy stability.</description>
+            <developerName>instructions_0_1760359139370</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1760359139370</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When generating the final answer:
+
+Summarize key information clearly and factually.
+
+Present procedures, fees, and payment options as bullet points or steps.
+
+Include reviewing or approving authorities when applicable (e.g., Local ABC Board, ALE).
+
+Always append clickable source URLs:
+
+If using Knowledge → link to the article
+
+If using Web Search → link directly to the NCABC web page(s) retrieved
+
+If the web result contains pricing or payment links, display them clearly:
+
+Example:
+
+💵 Permit Fee Information
+
+💳 Online Payment Portal
+
+Include multiple URLs when available and relevant</description>
+            <developerName>instructions_0_1760359296294</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1760359296294</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>No Match Handling:
+
+If neither retriever yields a relevant answer, respond politely with:
+
+“Sorry, I can’t find an answer based on the available information. Please visit the NCABC Contact page for further assistance.”
+(https://www.abc.nc.gov/contact-information.)</description>
+            <developerName>instructions_0_1760370235466</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1760370235466</masterLabel>
+            <sortOrder>4</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Only respond using NCABC Knowledge Library and NCABC indexed web sources.
+
+Never escalate to live agents.
+
+Always provide clickable, verifiable URLs with every answer.
+
+Never generate speculative, incomplete, or non-policy content.
+
+Always state if expedited processing is unavailable:
+
+“There is no way to expedite an application. Applications generally process in 7 to 10 business days. A complete packet is required to obtain an ABC permit. Delay can result from incomplete information, local government objections, or lack of cooperation with ALE agents.”</description>
+            <developerName>instructions_0_1760371294703</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1760371294703</masterLabel>
+            <sortOrder>5</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Ensure URLs in responses are clickable and accurate.</description>
+            <developerName>instructions_0_1760446468191</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1760446468191</masterLabel>
+            <sortOrder>6</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include source link in every answer.</description>
+            <developerName>instructions_0_1760447529483</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1760447529483</masterLabel>
+            <sortOrder>7</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>“How do I pay for a temporary ABC permit and what is the fee?”
+
+Retrieved Results:
+
+Knowledge Article → confidence: 0.45 (general permit info)
+
+Web Search → confidence: 0.76 (fee page + payment links)
+
+✅ Agent Response:
+
+The fee for a temporary ABC permit is $50.
+You can make payments directly through the NCABC payment portal.
+
+💵 Permit Fee Details along with the URL From where It got the information
+
+💳 Make a Payment Online along with the URL From where It got the information</description>
+            <developerName>instructions_0_1760534149812</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1760534149812</masterLabel>
+            <sortOrder>8</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Ensure that any URLs included in the response are accurate, up-to-date, and directly correspond to the content described in the query. If multiple URLs are available, prioritize the most specific and relevant link.</description>
+            <developerName>instructions_0_1760607065838</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1760607065838</masterLabel>
+            <sortOrder>9</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>NCABC_Web_Search_179gK000000V1sf</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Knowledge_Article_179gK000000V1sf</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Knowledge_Article_179gK000000V1sf</fullName>
+            <description>Retrieve accurate and policy-based answers strictly from the data provided by the assigned retriever. Use only the content indexed from the NCABC Knowledge Articles or NCABC web sources associated with this retriever. Include the verified source URL at the end of every response, ensuring it is clickable and accurate.</description>
+            <developerName>Knowledge_Article_179gK000000V1sf</developerName>
+            <invocationTarget>Knowledge_Article</invocationTarget>
+            <invocationTargetType>generatePromptResponse</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Knowledge_Article</localDeveloperName>
+            <masterLabel>Knowledge Article</masterLabel>
+            <progressIndicatorMessage>Getting Answers from Knowledge Articles.</progressIndicatorMessage>
+        </localActions>
+        <localActions>
+            <fullName>NCABC_Web_Search_179gK000000V1sf</fullName>
+            <description>Retrieves accurate and up-to-date information from authorized NCABC web sources using the Web Content Crawler retriever.</description>
+            <developerName>NCABC_Web_Search_179gK000000V1sf</developerName>
+            <invocationTarget>NCABC_Web_Search</invocationTarget>
+            <invocationTargetType>generatePromptResponse</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>NCABC_Web_Search</localDeveloperName>
+            <masterLabel>NCABC Web Search</masterLabel>
+            <progressIndicatorMessage>Hang tight! We’re retrieving information from NC ABC sites.</progressIndicatorMessage>
+        </localActions>
+        <localDeveloperName>GeneralFAQ</localDeveloperName>
+        <masterLabel>General FAQ</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Covers NCABC licensing, permits, regulations, store operations, alcohol laws, and application procedures.
+
+Responds only using:
+
+Knowledge_Article_179gK000000V1sf (internal Knowledge Library)
+
+NCABC_Web_Search_179gK000000V1sf (official NCABC web index)
+
+Ensures all URLs are clickable and accurate.
+
+Avoids speculative or unrelated advice.
+
+Presents information in clear, concise, step-by-step format when appropriate.</scope>
+        <source>SvcCopilotTmpl__GeneralFAQ</source>
+    </localTopics>
+    <masterLabel>Agentforce Websearch</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jgK000000naLh</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jgK000000naLh</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+</GenAiPlannerBundle>

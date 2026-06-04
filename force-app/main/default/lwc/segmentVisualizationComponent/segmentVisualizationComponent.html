@@ -1,0 +1,296 @@
+<!-- segmentVisualizationComponent.html -->
+<template>
+    <lightning-card title="Route & Availability Visualization" icon-name="utility:graph">
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- Controls -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-radio-group 
+                        name="viewMode"
+                        label="View Mode"
+                        options={viewModeOptions}
+                        value={viewMode}
+                        type="button"
+                        onchange={handleViewModeChange}>
+                    </lightning-radio-group>
+                </div>
+                
+                <template if:true={isUtilizationView}>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <lightning-combobox 
+                            name="coachType"
+                            label="Coach Type"
+                            value={selectedCoachType}
+                            options={coachTypeOptions}
+                            onchange={handleCoachTypeChange}>
+                        </lightning-combobox>
+                    </div>
+                </template>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-text-align_right">
+                    <lightning-button 
+                        variant="outline-brand" 
+                        label="Refresh" 
+                        icon-name="utility:refresh"
+                        onclick={handleRefresh}
+                        size="small">
+                    </lightning-button>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center slds-m-vertical_large">
+                    <lightning-spinner alternative-text="Loading route data..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Error State -->
+            <template if:true={error}>
+                <div class="slds-m-bottom_medium">
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                        <span class="slds-assistive-text">Error</span>
+                        <lightning-icon icon-name="utility:error" size="x-small" variant="inverse"></lightning-icon>
+                        <h2>{errorMessage}</h2>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Train Info -->
+            <template if:true={trainInfo}>
+                <div class="train-info slds-box slds-m-bottom_medium">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <h3 class="slds-text-heading_small">{trainInfo.name}</h3>
+                            <p class="slds-text-body_small">
+                                Train {trainInfo.trainNumber} • {trainInfo.trainType}
+                            </p>
+                            <p class="slds-text-body_small slds-text-color_weak">
+                                {trainInfo.sourceStation} → {trainInfo.destinationStation}
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <template if:true={trainInfo.totalDistance}>
+                                <p class="slds-text-body_small">
+                                    <strong>Distance:</strong> {trainInfo.totalDistance} km
+                                </p>
+                            </template>
+                            <template if:true={trainInfo.averageSpeed}>
+                                <p class="slds-text-body_small">
+                                    <strong>Average Speed:</strong> {trainInfo.averageSpeed} km/h
+                                </p>
+                            </template>
+                            <template if:true={selectedSegmentInfo}>
+                                <p class="slds-text-body_small">
+                                    <strong>Selected:</strong> {selectedSegmentInfo.from} → {selectedSegmentInfo.to}
+                                </p>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Route View -->
+            <template if:true={isRouteView}>
+                <template if:true={hasRouteData}>
+                    <div class="route-visualization">
+                        <div class="route-timeline">
+                            <template for:each={routeData.routeStations} for:item="station" for:index="index">
+                                <div key={station.id} class={station.stationClass} 
+                                     data-station-order={station.stopNumber}
+                                     onclick={handleStationClick}>
+                                    
+                                    <div class="station-marker">
+                                        <div class="station-dot"></div>
+                                        <template if:false={station.isLast}>
+                                            <div class="station-line"></div>
+                                        </template>
+                                    </div>
+                                    
+                                    <div class="station-details slds-p-left_small">
+                                        <div class="slds-grid slds-grid_align-spread">
+                                            <div class="slds-col">
+                                                <h4 class="slds-text-heading_x-small">
+                                                    {station.stationName} ({station.stationCode})
+                                                </h4>
+                                                <p class="slds-text-body_x-small slds-text-color_weak">
+                                                    {station.city}, {station.state}
+                                                </p>
+                                            </div>
+                                            <div class="slds-col slds-no-flex">
+                                                <div class="station-times slds-text-align_right">
+                                                    <template if:true={station.arrivalTime}>
+                                                        <p class="slds-text-body_small">
+                                                            Arr: {station.arrivalTime}
+                                                        </p>
+                                                    </template>
+                                                    <template if:true={station.departureTime}>
+                                                        <p class="slds-text-body_small">
+                                                            Dep: {station.departureTime}
+                                                        </p>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="station-info slds-grid slds-gutters_x-small slds-m-top_x-small">
+                                            <template if:true={station.distanceFromSource}>
+                                                <div class="slds-col">
+                                                    <span class="slds-badge slds-badge_lightest">
+                                                        {station.distanceFromSource} km
+                                                    </span>
+                                                </div>
+                                            </template>
+                                            <template if:true={station.platformNumber}>
+                                                <div class="slds-col">
+                                                    <span class="slds-badge slds-badge_lightest">
+                                                        Platform {station.platformNumber}
+                                                    </span>
+                                                </div>
+                                            </template>
+                                            <template if:true={station.haltDuration}>
+                                                <div class="slds-col">
+                                                    <span class="slds-badge slds-badge_lightest">
+                                                        {station.haltDuration}min halt
+                                                    </span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Utilization View -->
+            <template if:true={isUtilizationView}>
+                <template if:true={hasSegmentData}>
+                    <div class="utilization-visualization">
+                        <div class="utilization-legend slds-grid slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-4">
+                                <div class="legend-item">
+                                    <span class="legend-color utilization-empty"></span>
+                                    <span class="slds-text-body_x-small">0-30%</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                <div class="legend-item">
+                                    <span class="legend-color utilization-low"></span>
+                                    <span class="slds-text-body_x-small">30-60%</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                <div class="legend-item">
+                                    <span class="legend-color utilization-medium"></span>
+                                    <span class="slds-text-body_x-small">60-80%</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                <div class="legend-item">
+                                    <span class="legend-color utilization-high"></span>
+                                    <span class="slds-text-body_x-small">80%+</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template for:each={segmentData} for:item="segment" for:index="index">
+                            <div key={segment.id} class={segment.segmentClass} 
+                                 data-segment-index={index}
+                                 onclick={handleSegmentClick}>
+                                
+                                <div class="segment-header slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+                                    <div class="slds-col">
+                                        <h4 class="slds-text-heading_x-small">
+                                            {segment.fromStationName} → {segment.toStationName}
+                                        </h4>
+                                    </div>
+                                    <div class="slds-col slds-no-flex">
+                                        <span class="slds-text-body_small slds-text-color_weak">
+                                            {segment.currentCoachData.occupancyPercentage}% occupied
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="utilization-bar-container slds-m-bottom_small">
+                                    <div class="utilization-bar-background">
+                                        <div class={segment.utilizationClass} 
+                                             style={segment.utilizationWidth}>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="segment-details slds-grid slds-gutters_x-small">
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <p class="slds-text-body_x-small">
+                                            <strong>{segment.currentCoachData.availableSeats}</strong> available
+                                        </p>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <p class="slds-text-body_x-small">
+                                            <strong>{segment.currentCoachData.occupiedSeats}</strong> occupied
+                                        </p>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <p class="slds-text-body_x-small">
+                                            <strong>{segment.currentCoachData.totalSeats}</strong> total
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Live Status View -->
+            <template if:true={isLiveView}>
+                <template if:true={hasLiveData}>
+                    <div class="live-status-visualization">
+                        <template for:each={liveStatusData} for:item="status">
+                            <div key={status.stationCode} class={status.statusClass}>
+                                <div class="status-item slds-box slds-m-bottom_x-small">
+                                    <div class="slds-grid slds-grid_align-spread">
+                                        <div class="slds-col">
+                                            <h4 class="slds-text-heading_x-small">
+                                                {status.stationName} ({status.stationCode})
+                                            </h4>
+                                            <p class="slds-text-body_small">
+                                                Scheduled: {status.scheduledArrival} / {status.scheduledDeparture}
+                                            </p>
+                                        </div>
+                                        <div class="slds-col slds-no-flex slds-text-align_right">
+                                            <div class="status-indicator">
+                                                <lightning-badge label={status.status} 
+                                                                variant={status.statusClass}>
+                                                </lightning-badge>
+                                            </div>
+                                            <template if:true={status.delay}>
+                                                <p class={status.delayClass}>
+                                                    {status.delayText}
+                                                </p>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    
+                                    <template if:true={status.actualTime}>
+                                        <p class="slds-text-body_small slds-m-top_x-small">
+                                            Actual: {status.actualTime}
+                                        </p>
+                                    </template>
+                                    
+                                    <template if:true={status.expectedTime}>
+                                        <p class="slds-text-body_small slds-m-top_x-small">
+                                            Expected: {status.expectedTime}
+                                        </p>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

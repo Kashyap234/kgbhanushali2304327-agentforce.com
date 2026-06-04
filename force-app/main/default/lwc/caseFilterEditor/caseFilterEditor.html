@@ -1,0 +1,12 @@
+<template>
+  <div style="padding: 12px;">
+    <p style="font-weight: 500; margin-bottom: 8px;">Select case statuses to filter:</p>
+    <template for:each={statusOptions} for:item="opt">
+      <label key={opt.value} style="display: block; margin-bottom: 6px;">
+        <input type="checkbox" value={opt.value} checked={opt.checked}
+               onchange={handleCheck} />
+        &nbsp;{opt.label}
+      </label>
+    </template>
+  </div>
+</template>

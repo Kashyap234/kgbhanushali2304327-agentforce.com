@@ -1,0 +1,97 @@
+<template>
+    <div class="opp-filter-container">
+
+        <!-- Header -->
+        <div class="filter-header">
+            <div class="header-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                </svg>
+            </div>
+            <div class="header-text">
+                <h2 class="header-title">Filter Opportunities</h2>
+                <p class="header-subtitle">Select one or more stages to view matching records</p>
+            </div>
+        </div>
+
+        <!-- Stage options grid -->
+        <div class="stage-grid">
+            <template for:each={stageOptions} for:item="stage">
+                <button
+                    key={stage.value}
+                    class={stage.pillClass}
+                    data-value={stage.value}
+                    onclick={handleStageToggle}
+                    aria-pressed={stage.selected}
+                    type="button"
+                >
+                    <!-- Stage colour dot -->
+                    <span class="stage-dot" style={stage.dotStyle}></span>
+                    <span class="stage-label">{stage.label}</span>
+                    <!-- Checkmark appears when selected -->
+                    <template if:true={stage.selected}>
+                        <svg class="stage-check" xmlns="http://www.w3.org/2000/svg"
+                             width="14" height="14" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="3"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </template>
+                </button>
+            </template>
+        </div>
+
+        <!-- Selection summary -->
+        <div class="selection-summary">
+            <template if:true={hasSelection}>
+                <div class="summary-content">
+                    <span class="summary-count">{selectedCount}</span>
+                    <span class="summary-label">{selectionText} selected</span>
+                    <button class="clear-btn" onclick={handleClearAll} type="button">
+                        Clear all
+                    </button>
+                </div>
+                <div class="selected-chips">
+                    <template for:each={selectedStages} for:item="s">
+                        <span key={s.value} class="chip">
+                            {s.label}
+                            <button
+                                class="chip-remove"
+                                data-value={s.value}
+                                onclick={handleRemoveChip}
+                                type="button"
+                                aria-label={s.removeLabel}
+                            >&#x2715;</button>
+                        </span>
+                    </template>
+                </div>
+            </template>
+            <template if:false={hasSelection}>
+                <p class="no-selection-msg">No stages selected yet. Pick at least one above.</p>
+            </template>
+        </div>
+
+        <!-- Submit button -->
+        <div class="action-row">
+            <button
+                class={submitClass}
+                onclick={handleSubmit}
+                disabled={isSubmitDisabled}
+                type="button"
+            >
+                <template if:true={hasSelection}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </template>
+                {submitLabel}
+            </button>
+        </div>
+
+    </div>
+</template>

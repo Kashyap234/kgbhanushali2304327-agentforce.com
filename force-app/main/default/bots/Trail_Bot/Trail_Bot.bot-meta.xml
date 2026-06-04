@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <botMlDomain>
+        <label>Trail Bot</label>
+        <mlIntents>
+            <developerName>Are_ABC_stores_open_on_Sundays_or_holidays</developerName>
+            <label>Are ABC stores open on Sundays or holidays?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.Are_ABC_stores_open_on_Sundays_or_holidays</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Can_I_purchase_spirituous_liquor_in_grocery_stores_or_other_retail_outlets</developerName>
+            <label>Can I purchase spirituous liquor in grocery stores or other retail outlets?</label>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>bourbon costco</utterance>
+            </mlIntentUtterances>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>Can i purchase School in convinience</utterance>
+            </mlIntentUtterances>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>whisky convinience</utterance>
+            </mlIntentUtterances>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>Can i purchase School in convinience</utterance>
+            </mlIntentUtterances>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>can i purchase Whisky convinience</utterance>
+            </mlIntentUtterances>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.Can_I_purchase_spirituous_liquor_in_grocery_stores_or_other_retail_outlets</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_can_I_add_additional_permits_when_I_already_hold_one_ABC_permit</developerName>
+            <label>How can I add additional permits when I already hold one ABC permit?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_can_I_add_additional_permits_when_I_already_hold_one_ABC_permit</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_can_I_expedite_my_application</developerName>
+            <label>How can I expedite my application?</label>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>what is the permission for required for opening the new school</utterance>
+            </mlIntentUtterances>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_can_I_expedite_my_application</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_can_I_find_an_ABC_store_near_me</developerName>
+            <label>How can I find an ABC store near me?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_can_I_find_an_ABC_store_near_me</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_can_I_place_a_special_order_for_a_product_not_available_in_my_local_ABC_stor</developerName>
+            <label>How can I place a special order for a product not available in my local ABC stor</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_can_I_place_a_special_order_for_a_product_not_available_in_my_local_ABC_stor</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_can_I_renew_my_existing_ABC_permit</developerName>
+            <label>How can I renew my existing ABC permit?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_can_I_renew_my_existing_ABC_permit</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_do_I_apply_for_a_Commercial_Permit</developerName>
+            <label>How do I apply for a Commercial Permit?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_do_I_apply_for_a_Commercial_Permit</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_do_I_apply_for_a_permit_for_my_one_time_event</developerName>
+            <label>How do I apply for a permit for my one-time event?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_do_I_apply_for_a_permit_for_my_one_time_event</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_do_I_apply_for_a_retail_permit</developerName>
+            <label>How do I apply for a retail permit?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_do_I_apply_for_a_retail_permit</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>How_many_ABC_stores_are_there_in_North_Carolina</developerName>
+            <label>How many ABC stores are there in North Carolina?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.How_many_ABC_stores_are_there_in_North_Carolina</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Is_my_local_ABC_store_open_today</developerName>
+            <label>Is my local ABC store open today?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.Is_my_local_ABC_store_open_today</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_are_the_requirements_for_obtaining_a_special_one_time_permit_for_an_event</developerName>
+            <label>What are the requirements for obtaining a special one-time permit for an event?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_are_the_requirements_for_obtaining_a_special_one_time_permit_for_an_event</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_cities_or_counties_have_elected_to_allow_the_sales_of_alcohol</developerName>
+            <label>What cities (or counties) have elected to allow the sales of alcohol?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_cities_or_counties_have_elected_to_allow_the_sales_of_alcohol</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_happens_if_I_change_the_businesses_ownership_or_relocate_my_business_to_a_n</developerName>
+            <label>What happens if I change the businesses ownership or relocate my business to a n</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_happens_if_I_change_the_businesses_ownership_or_relocate_my_business_to_a_n</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_happens_if_I_don_t_renew_my_ABC_permit_by_April_30th</developerName>
+            <label>What happens if I don&apos;t renew my ABC permit by April 30th?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_happens_if_I_don_t_renew_my_ABC_permit_by_April_30th</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_is_the_cost_of_obtaining_an_ABC_permit</developerName>
+            <label>What is the cost of obtaining an ABC permit?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_is_the_cost_of_obtaining_an_ABC_permit</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_is_the_minimum_age_to_work_in_establishments_serving_alcohol</developerName>
+            <label>What is the minimum age to work in establishments serving alcohol?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_is_the_minimum_age_to_work_in_establishments_serving_alcohol</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_is_the_turnaround_time_for_permit_applications</developerName>
+            <label>What is the turnaround time for permit applications?</label>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>waiting time</utterance>
+            </mlIntentUtterances>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>what is Whisky convinience</utterance>
+            </mlIntentUtterances>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>what is the turnaround time</utterance>
+            </mlIntentUtterances>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_is_the_turnaround_time_for_permit_applications</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_kind_of_background_investigation_is_required</developerName>
+            <label>What kind of background investigation is required?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_kind_of_background_investigation_is_required</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>What_types_of_permits_does_the_NCABC_issue</developerName>
+            <label>What types of permits does the NCABC issue?</label>
+            <mlIntentUtterances>
+                <language>en_US</language>
+                <utterance>permits</utterance>
+            </mlIntentUtterances>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.What_types_of_permits_does_the_NC_ABC_issue</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <mlIntents>
+            <developerName>Where_can_I_get_ink_fingerprint_cards_completed</developerName>
+            <label>Where can I get ink fingerprint cards completed?</label>
+            <relatedMlIntents>
+                <relatedMlIntent>trial_intent_set.Where_can_I_get_ink_fingerprint_cards_completed</relatedMlIntent>
+            </relatedMlIntents>
+        </mlIntents>
+        <name>Trail_Bot</name>
+    </botMlDomain>
+    <botSource>None</botSource>
+    <botUser>kgbhanushali2304327@agentforce.com</botUser>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingEndUser</SObjectType>
+            <fieldName>MessagingEndUser.ContactId</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingEndUser ContactId</description>
+        <developerName>ContactId</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Contact Id</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingSession</SObjectType>
+            <fieldName>MessagingSession.MessagingEndUserId</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingEndUser Id</description>
+        <developerName>EndUserId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>End User Id</label>
+    </contextVariables>
+    <contextVariables>
+        <contextVariableMappings>
+            <SObjectType>MessagingSession</SObjectType>
+            <fieldName>MessagingSession.Id</fieldName>
+            <messageType>EmbeddedMessaging</messageType>
+        </contextVariableMappings>
+        <dataType>Id</dataType>
+        <description>This variable may also be referred to as MessagingSession Id</description>
+        <developerName>RoutableId</developerName>
+        <includeInPrompt>true</includeInPrompt>
+        <label>Routable Id</label>
+    </contextVariables>
+    <defaultOutboundFlow>route_from_trail_bot</defaultOutboundFlow>
+    <description>A bot from scratch.</description>
+    <label>Trail Bot</label>
+    <logPrivateConversationData>true</logPrivateConversationData>
+    <richContentEnabled>true</richContentEnabled>
+    <sessionTimeout>0</sessionTimeout>
+    <type>Bot</type>
+</Bot>

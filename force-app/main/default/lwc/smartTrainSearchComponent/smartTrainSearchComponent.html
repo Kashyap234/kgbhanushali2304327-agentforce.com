@@ -1,0 +1,272 @@
+<!-- smartTrainSearchComponent.html -->
+<template>
+    <lightning-card title="Smart Train Search" icon-name="utility:search">
+        <!-- Search Form -->
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:false={showResults}>
+                <!-- Popular Routes Section -->
+                <template if:true={hasPopularRoutes}>
+                    <div class="slds-m-bottom_medium">
+                        <h3 class="slds-text-heading_small slds-m-bottom_x-small">Popular Routes</h3>
+                        <div class="slds-grid slds-wrap slds-gutters_x-small">
+                            <template for:each={popularRoutes} for:item="route" for:index="index">
+                                <div key={route.fromCode} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-4">
+                                    <button class="popular-route-btn slds-button slds-button_outline-brand slds-size_1-of-1 slds-text-body_small"
+                                            data-route-index={index}
+                                            onclick={handlePopularRouteClick}>
+                                        <div class="slds-truncate">{route.fromName}</div>
+                                        <lightning-icon icon-name="utility:right" size="xx-small"></lightning-icon>
+                                        <div class="slds-truncate">{route.toName}</div>
+                                    </button>
+                                </div>
+                            </template>
+                        </div>
+                        <hr class="slds-m-vertical_medium">
+                    </div>
+                </template>
+
+                <!-- Search Form -->
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <!-- From Station -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                        <lightning-combobox 
+                            name="fromStation"
+                            label="From Station"
+                            value={searchCriteria.fromStation}
+                            placeholder="Select departure station"
+                            options={stationOptions}
+                            data-field="fromStation"
+                            onchange={handleSearchInputChange}
+                            required
+                            variant="label-stacked">
+                        </lightning-combobox>
+                    </div>
+
+                    <!-- Swap Button -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-12 slds-align_absolute-center">
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-m-top_small"
+                                title="Swap stations" onclick={handleSwapStations}>
+                            <lightning-icon icon-name="utility:swap" size="small"></lightning-icon>
+                        </button>
+                    </div>
+
+                    <!-- To Station -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                        <lightning-combobox 
+                            name="toStation"
+                            label="To Station"
+                            value={searchCriteria.toStation}
+                            placeholder="Select destination station"
+                            options={stationOptions}
+                            data-field="toStation"
+                            onchange={handleSearchInputChange}
+                            required
+                            variant="label-stacked">
+                        </lightning-combobox>
+                    </div>
+
+                    <!-- Journey Date -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-4">
+                        <lightning-input 
+                            type="date"
+                            label="Journey Date"
+                            value={searchCriteria.journeyDate}
+                            min={todayDate}
+                            max={maxBookingDate}
+                            data-field="journeyDate"
+                            onchange={handleSearchInputChange}
+                            required
+                            variant="label-stacked">
+                        </lightning-input>
+                    </div>
+
+                    <!-- Coach Type -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-6">
+                        <lightning-combobox 
+                            name="coachType"
+                            label="Coach Type"
+                            value={searchCriteria.coachType}
+                            options={coachTypeOptions}
+                            data-field="coachType"
+                            onchange={handleSearchInputChange}
+                            variant="label-stacked">
+                        </lightning-combobox>
+                    </div>
+
+                    <!-- Passengers -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-6">
+                        <lightning-combobox 
+                            name="passengerCount"
+                            label="Passengers"
+                            value={searchCriteria.passengerCount}
+                            options={passengerCountOptions}
+                            data-field="passengerCount"
+                            onchange={handleSearchInputChange}
+                            variant="label-stacked">
+                        </lightning-combobox>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="slds-grid slds-gutters slds-m-top_medium">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <lightning-button 
+                            variant="brand" 
+                            label="Search Trains" 
+                            title="Search for available trains"
+                            onclick={handleSearch}
+                            class="slds-size_1-of-1"
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <lightning-button 
+                            variant="neutral" 
+                            label="Reset" 
+                            title="Clear search criteria"
+                            onclick={handleReset}
+                            class="slds-size_1-of-1">
+                        </lightning-button>
+                    </div>
+                </div>
+
+                <!-- Loading Indicator -->
+                <template if:true={isLoading}>
+                    <div class="slds-m-top_medium">
+                        <lightning-spinner alternative-text="Searching trains..." size="medium"></lightning-spinner>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Search Results -->
+            <template if:true={showResults}>
+                <div class="slds-m-bottom_medium">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                        <div class="slds-col">
+                            <h2 class="slds-text-heading_medium">Search Results</h2>
+                            <p class="slds-text-body_small slds-text-color_weak">{searchSummary}</p>
+                        </div>
+                        <div class="slds-col slds-no-flex">
+                            <lightning-button 
+                                variant="outline-brand" 
+                                label="New Search" 
+                                onclick={handleReset}
+                                size="small">
+                            </lightning-button>
+                        </div>
+                    </div>
+
+                    <!-- Train Results -->
+                    <template if:true={hasSearchResults}>
+                        <div class="train-results">
+                            <template for:each={searchResults} for:item="train">
+                                <div key={train.id} class="train-result-card slds-card slds-m-bottom_small">
+                                    <div class="slds-card__header">
+                                        <div class="slds-grid slds-grid_align-spread">
+                                            <div class="slds-col">
+                                                <h3 class="slds-text-heading_small">
+                                                    {train.trainName} ({train.trainNumber})
+                                                </h3>
+                                                <p class="slds-text-body_small slds-text-color_weak">
+                                                    {train.trainType}
+                                                </p>
+                                            </div>
+                                            <div class="slds-col slds-no-flex">
+                                                <template if:true={train.canBook}>
+                                                    <lightning-badge label="Seats Available" variant="success"></lightning-badge>
+                                                </template>
+                                                <template if:false={train.canBook}>
+                                                    <lightning-badge label="Waitlist Only" variant="warning"></lightning-badge>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <!-- Journey Details -->
+                                        <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                                            <div class="slds-col slds-size_1-of-3">
+                                                <div class="journey-point">
+                                                    <div class="slds-text-heading_small">{train.departureTime}</div>
+                                                    <div class="slds-text-body_small">{train.fromStation}</div>
+                                                    <div class="slds-text-color_weak slds-text-body_x-small">{train.fromStationCode}</div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-3 slds-text-align_center">
+                                                <div class="journey-duration">
+                                                    <lightning-icon icon-name="utility:right" size="x-small"></lightning-icon>
+                                                    <div class="slds-text-body_small slds-m-horizontal_x-small">{train.duration}</div>
+                                                    <lightning-icon icon-name="utility:right" size="x-small"></lightning-icon>
+                                                </div>
+                                                <template if:true={train.distance}>
+                                                    <div class="slds-text-body_x-small slds-text-color_weak">{train.distance} km</div>
+                                                </template>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-3 slds-text-align_right">
+                                                <div class="journey-point">
+                                                    <div class="slds-text-heading_small">{train.arrivalTime}</div>
+                                                    <div class="slds-text-body_small">{train.toStation}</div>
+                                                    <div class="slds-text-color_weak slds-text-body_x-small">{train.toStationCode}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Availability by Coach Type -->
+                                        <template if:true={train.coachAvailabilities}>
+                                            <div class="slds-m-bottom_medium">
+                                                <h4 class="slds-text-heading_x-small slds-m-bottom_x-small">Availability</h4>
+                                                <div class="slds-grid slds-wrap slds-gutters_x-small">
+                                                    <template for:each={train.coachAvailabilities} for:item="coach">
+                                                        <div key={coach.coachType} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3">
+                                                            <div class={coach.availabilityClass}>
+                                                                <div class="coach-availability-item slds-box slds-box_x-small">
+                                                                    <div class="slds-grid slds-grid_align-spread">
+                                                                        <div class="slds-col">
+                                                                            <div class="slds-text-body_small slds-text-title">
+                                                                                {coach.coachType}
+                                                                            </div>
+                                                                            <div class="slds-text-body_x-small">
+                                                                                {coach.totalAvailable} available
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="slds-col slds-no-flex">
+                                                                            <lightning-button 
+                                                                                variant={coach.buttonVariant}
+                                                                                label={coach.bookingLabel}
+                                                                                size="small"
+                                                                                data-train-id={train.trainId}
+                                                                                data-coach-type={coach.coachType}
+                                                                                onclick={handleTrainSelection}>
+                                                                            </lightning-button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <template if:true={coach.utilizationMessage}>
+                                                                        <div class="slds-text-body_x-small slds-text-color_weak slds-m-top_x-small">
+                                                                            {coach.utilizationMessage}
+                                                                        </div>
+                                                                    </template>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template if:false={hasSearchResults}>
+                        <div class="slds-align_absolute-center slds-m-vertical_large">
+                            <lightning-icon icon-name="utility:info" size="large" variant="warning"></lightning-icon>
+                            <h3 class="slds-text-heading_medium slds-m-top_small">No trains found</h3>
+                            <p class="slds-text-body_regular">Try adjusting your search criteria</p>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
