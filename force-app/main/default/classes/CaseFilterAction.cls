@@ -36,4 +36,19 @@ global with sharing class CaseFilterAction {
         }
         return results;
     }
+
+    @AuraEnabled
+    public static String getCasesByStatus(String status) {
+        try {
+            List<Case> cases;
+            if (String.isBlank(status) || status == 'All') {
+                cases = [SELECT Id, CaseNumber, Subject, Status, Priority, AccountId, Account.Name FROM Case LIMIT 50];
+            } else {
+                cases = [SELECT Id, CaseNumber, Subject, Status, Priority, AccountId, Account.Name FROM Case WHERE Status = :status LIMIT 50];
+            }
+            return JSON.serialize(cases);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }

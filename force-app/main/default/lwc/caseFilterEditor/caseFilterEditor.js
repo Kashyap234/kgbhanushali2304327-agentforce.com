@@ -10,14 +10,15 @@ export default class CaseFilterEditor extends LightningElement {
 
     handleCheck(event) {
         const val = event.target.value;
+        // Update all options so only the selected one is checked
         this.statusOptions = this.statusOptions.map(opt =>
-            opt.value === val ? { ...opt, checked: event.target.checked } : opt
+            ({ ...opt, checked: opt.value === val })
         );
-        const selected = this.statusOptions
-            .filter(o => o.checked).map(o => o.value).join(',');
+        
+        // Dispatch the new selected status
         this.dispatchEvent(new CustomEvent('valuechange', {
             bubbles: true,
-            detail: { value: { selectedStatuses: selected } }
+            detail: { value: { selectedStatuses: val } }
         }));
     }
 }
