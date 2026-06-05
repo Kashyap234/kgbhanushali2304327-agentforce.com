@@ -1,10 +1,10 @@
 {
   "unevaluatedProperties" : false,
   "properties" : {
-    "selectedStatuses" : {
-      "title" : "Selected Statuses",
-      "description" : "Comma-separated Case statuses selected by the user",
-      "lightning:type" : "lightning__textType",
+    "filter" : {
+      "title" : "Case Filter Input",
+      "description" : "The wrapper for case filters",
+      "lightning:type" : "c__caseFilter",
       "lightning:isPII" : false,
       "copilotAction:isUserInput" : true
     }

@@ -1,0 +1,21 @@
+{
+  "required" : [ "caseNumber", "description" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "caseNumber" : {
+      "title" : "Case Number",
+      "description" : "The CaseNumber of the case to update, e.g., 00001002",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    },
+    "description" : {
+      "title" : "Description",
+      "description" : "The new description or notes to append or update on the case",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

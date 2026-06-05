@@ -3,8 +3,8 @@
     <p style="font-weight: 500; margin-bottom: 12px; color: #333;">Select a case status to filter:</p>
     <template for:each={statusOptions} for:item="opt">
       <label key={opt.value} style="display: flex; align-items: center; margin-bottom: 10px; cursor: pointer;">
-        <input type="radio" name="caseStatusRadio" value={opt.value} checked={opt.checked}
-               onchange={handleCheck} style="margin-right: 8px; cursor: pointer;" />
+        <input type="radio" name="caseStatusRadio" value={opt.value} checked={opt.checked} onchange={handleCheck}
+          style="margin-right: 8px; cursor: pointer;" />
         <span style="font-size: 14px; color: #444;">{opt.label}</span>
       </label>
     </template>

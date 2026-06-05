@@ -14,7 +14,7 @@ export default class CaseFilterEditor extends LightningElement {
         this.statusOptions = this.statusOptions.map(opt =>
             ({ ...opt, checked: opt.value === val })
         );
-        
+
         // Dispatch the new selected status
         this.dispatchEvent(new CustomEvent('valuechange', {
             bubbles: true,

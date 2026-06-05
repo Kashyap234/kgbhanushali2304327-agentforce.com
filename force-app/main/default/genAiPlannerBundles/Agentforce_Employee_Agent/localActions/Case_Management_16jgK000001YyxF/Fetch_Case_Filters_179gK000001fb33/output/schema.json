@@ -1,19 +1,10 @@
 {
   "unevaluatedProperties" : false,
   "properties" : {
-    "casesJson" : {
-      "title" : "Cases JSON",
-      "description" : "JSON array of matching cases",
-      "lightning:type" : "lightning__textType",
-      "lightning:isPII" : false,
-      "copilotAction:isDisplayable" : false,
-      "copilotAction:isUsedByPlanner" : true,
-      "copilotAction:useHydratedPrompt" : false
-    },
-    "userNotes" : {
-      "title" : "User Notes",
-      "description" : "Notes entered by the user in the output form",
-      "lightning:type" : "lightning__textType",
+    "resultData" : {
+      "title" : "Case Filter Output",
+      "description" : "The wrapper for case results",
+      "lightning:type" : "c__caseResult",
       "lightning:isPII" : false,
       "copilotAction:isDisplayable" : true,
       "copilotAction:isUsedByPlanner" : true,
