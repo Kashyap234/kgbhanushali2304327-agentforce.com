@@ -1,70 +1,72 @@
 <template>
-  <div style="padding: 12px; max-width: 600px;">
-    <!-- Inline Filter Section -->
-    <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-        <p style="font-weight: 600; margin-bottom: 12px; color: #333; font-size: 14px;">Filter Cases by Status</p>
-        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-            <template for:each={filterOptions} for:item="opt">
-                <label key={opt.value} style="display: flex; align-items: center; cursor: pointer;">
-                    <input type="radio" name="inlineCaseStatus" value={opt.value} checked={opt.checked}
-                           onchange={handleFilterChange} style="margin-right: 6px; cursor: pointer;" />
-                    <span style="font-size: 13px; color: #444;">{opt.label}</span>
-                </label>
-            </template>
-        </div>
-    </div>
+    <div style="padding: 12px; max-width: 600px;">
+        <!-- Filter Component View -->
+        <template if:true={showFilter}>
+            <div style="margin-bottom: 16px;">
+                <button onclick={handleCancelFilter} style="background: none; border: none; padding: 0; color: #666; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit;">
+                    ← Cancel
+                </button>
+            </div>
+            <!-- Render the input component directly, capturing its valuechange event -->
+            <c-case-filter-editor onvaluechange={handleLocalFilterChange}></c-case-filter-editor>
+        </template>
 
-    <!-- Loading Indicator -->
-    <template if:true={isLoading}>
-        <div style="padding: 20px; text-align: center; color: #666;">
-            Loading cases...
-        </div>
-    </template>
-
-    <!-- Cases List -->
-    <template if:false={isLoading}>
-        <template if:true={cases.length}>
-          <template for:each={cases} for:item="c">
-            <div key={c.Id} style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; margin-bottom: 12px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                    <strong>{c.CaseNumber}</strong> — {c.Subject}
-                    <div style="margin-top: 4px; font-size: 0.9em; color: #444;">
-                        <template if:true={c.Account}>Account: {c.Account.Name}</template>
-                    </div>
+        <!-- Main Cases View -->
+        <template if:false={showFilter}>
+            <!-- Loading Indicator -->
+            <template if:true={isLoading}>
+                <div style="padding: 20px; text-align: center; color: #666;">
+                    Loading cases...
                 </div>
-                <span style="color: #666; font-size: 0.85em; background: #eee; padding: 2px 6px; border-radius: 4px;">{c.Status}</span>
-              </div>
-              
-              <!-- Inline Note Editor -->
-              <div style="margin-top: 12px; border-top: 1px dashed #eee; padding-top: 10px;">
-                  <div style="display: flex; gap: 8px; align-items: flex-start;">
-                      <textarea 
-                          data-id={c.Id}
-                          value={c.noteValue}
-                          oninput={handleNoteChange}
-                          placeholder="Add a note to this case..."
-                          rows="2"
-                          style="flex: 1; border: 1px solid #ccc; border-radius: 4px; padding: 6px 8px; font-family: inherit; font-size: 13px; outline: none; resize: vertical;"
-                      ></textarea>
-                      <button 
-                          data-id={c.Id}
-                          onclick={handleSaveNote}
-                          disabled={c.isSaving}
-                          style="background: #0176d3; color: white; border: none; border-radius: 4px; padding: 6px 12px; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap;">
-                          <template if:true={c.isSaving}>Saving...</template>
-                          <template if:false={c.isSaving}>Save Note</template>
-                      </button>
-                  </div>
-              </div>
-            </div>
-          </template>
+            </template>
+
+            <!-- Cases List -->
+            <template if:false={isLoading}>
+                <template if:true={cases.length}>
+                    <template for:each={cases} for:item="c">
+                        <div key={c.Id}
+                            style="border: 1px solid #ddd; border-radius: 8px; padding: 10px; margin-bottom: 12px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <div>
+                                    <strong>{c.CaseNumber}</strong> — {c.Subject}
+                                    <div style="margin-top: 4px; font-size: 0.9em; color: #444;">
+                                        <template if:true={c.Account}>Account: {c.Account.Name}</template>
+                                    </div>
+                                </div>
+                                <span
+                                    style="color: #666; font-size: 0.85em; background: #eee; padding: 2px 6px; border-radius: 4px;">{c.Status}</span>
+                            </div>
+
+                            <!-- Inline Note Editor -->
+                            <div style="margin-top: 12px; border-top: 1px dashed #eee; padding-top: 10px;">
+                                <div style="display: flex; gap: 8px; align-items: flex-start;">
+                                    <textarea data-id={c.Id} value={c.noteValue} oninput={handleNoteChange}
+                                        placeholder="Add a note to this case..." rows="2"
+                                        style="flex: 1; border: 1px solid #ccc; border-radius: 4px; padding: 6px 8px; font-family: inherit; font-size: 13px; outline: none; resize: vertical;"></textarea>
+                                    <button data-id={c.Id} onclick={handleSaveNote} disabled={c.isSaving}
+                                        style="background: #0176d3; color: white; border: none; border-radius: 4px; padding: 6px 12px; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap;">
+                                        <template if:true={c.isSaving}>Saving...</template>
+                                        <template if:false={c.isSaving}>Save Note</template>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+                <template if:false={cases.length}>
+                    <div
+                        style="padding: 16px; text-align: center; color: #666; background: #f8f8f8; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 12px;">
+                        No cases found.
+                    </div>
+                </template>
+                
+                <!-- Return to Main Menu Link -->
+                <div style="text-align: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;">
+                    <button onclick={handleReturnToMenu} style="background: none; border: none; padding: 0; color: #0176d3; text-decoration: underline; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit;">
+                        ← Return to main menu
+                    </button>
+                </div>
+            </template>
         </template>
-        <template if:false={cases.length}>
-            <div style="padding: 16px; text-align: center; color: #666; background: #f8f8f8; border-radius: 8px; border: 1px solid #ddd;">
-                No cases found.
-            </div>
-        </template>
-    </template>
-  </div>
+    </div>
 </template>

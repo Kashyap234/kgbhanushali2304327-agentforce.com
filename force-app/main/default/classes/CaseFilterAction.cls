@@ -1,7 +1,7 @@
 // CaseFilterAction.cls
 global with sharing class CaseFilterAction {
     global class Request {
-        @InvocableVariable(required=false label='Case Filter Input' description='The wrapper for case filters')
+        @InvocableVariable(required=true label='Case Filter Input' description='The wrapper for case filters')
         global CaseFilterWrapper filter;
     }
 
@@ -19,26 +19,19 @@ global with sharing class CaseFilterAction {
         for (Request input : inputs) {
             Result outResult = new Result();
             outResult.resultData = new CaseResultWrapper();
+            outResult.resultData.casesJson = '[]';
             outResult.resultData.userNotes = '';
             
-            List<Case> cases;
             if (input.filter != null && String.isNotBlank(input.filter.selectedStatuses)) {
                 List<String> statuses = input.filter.selectedStatuses.split(',');
-                cases = [
+                List<Case> cases = [
                     SELECT Id, CaseNumber, Subject, Status, Priority, AccountId, Account.Name
                     FROM Case
                     WHERE Status IN :statuses
                     LIMIT 50
                 ];
-            } else {
-                // If no filter is provided, return all cases by default
-                cases = [
-                    SELECT Id, CaseNumber, Subject, Status, Priority, AccountId, Account.Name
-                    FROM Case
-                    LIMIT 50
-                ];
+                outResult.resultData.casesJson = JSON.serialize(cases);
             }
-            outResult.resultData.casesJson = JSON.serialize(cases);
             results.add(outResult);
         }
         return results;

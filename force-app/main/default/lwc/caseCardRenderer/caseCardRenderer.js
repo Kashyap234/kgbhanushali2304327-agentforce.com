@@ -7,14 +7,7 @@ export default class CaseCardRenderer extends LightningElement {
     @api sourceType;
     @track cases = [];
     @track isLoading = false;
-    
-    @track filterOptions = [
-        { label: 'All Cases', value: 'All', checked: true },
-        { label: 'New', value: 'New', checked: false },
-        { label: 'Working', value: 'Working', checked: false },
-        { label: 'Escalated', value: 'Escalated', checked: false },
-        { label: 'Closed', value: 'Closed', checked: false }
-    ];
+    @track showFilter = false;
     
     @api
     get value() { return this._value; }
@@ -23,14 +16,13 @@ export default class CaseCardRenderer extends LightningElement {
         if (v && v.casesJson) {
             this.setCases(v.casesJson);
         } else {
-            // Default load
-            this.fetchFilteredCases('All');
+            this.cases = [];
         }
     }
     _value = null;
 
     setCases(jsonStr) {
-        if (!jsonStr) {
+        if (!jsonStr || jsonStr === '[]') {
             this.cases = [];
             return;
         }
@@ -41,23 +33,45 @@ export default class CaseCardRenderer extends LightningElement {
         }));
     }
 
-    async handleFilterChange(event) {
-        const selectedStatus = event.target.value;
-        this.filterOptions = this.filterOptions.map(opt => ({
-            ...opt,
-            checked: opt.value === selectedStatus
-        }));
+    handleReturnToMenu(event) {
+        if (event) {
+            event.preventDefault();
+        }
         
-        await this.fetchFilteredCases(selectedStatus);
+        console.log('Return to menu clicked. Switching to local filter view.');
+        this.showFilter = true;
     }
-
-    async fetchFilteredCases(status) {
+    
+    handleCancelFilter(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        this.showFilter = false;
+    }
+    
+    async handleLocalFilterChange(event) {
+        // Prevent the valuechange event from bubbling up to Agentforce
+        event.stopPropagation();
+        
+        const selectedStatus = event.detail.value.selectedStatuses;
+        if (!selectedStatus) return;
+        
         this.isLoading = true;
+        this.showFilter = false;
+        
         try {
-            const resultJson = await getCasesByStatus({ status: status });
-            this.setCases(resultJson);
+            // Fetch cases directly from Apex bypassing the Copilot planner
+            const casesJson = await getCasesByStatus({ status: selectedStatus });
+            this.setCases(casesJson);
         } catch (error) {
-            console.error('Error fetching cases', error);
+            console.error('Error fetching cases:', error);
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error',
+                    message: error.body ? error.body.message : error.message,
+                    variant: 'error'
+                })
+            );
         } finally {
             this.isLoading = false;
         }
@@ -65,10 +79,10 @@ export default class CaseCardRenderer extends LightningElement {
 
     handleNoteChange(event) {
         const caseId = event.target.dataset.id;
-        const value = event.target.value;
+        const note = event.target.value;
         const caseRecord = this.cases.find(c => c.Id === caseId);
         if (caseRecord) {
-            caseRecord.noteValue = value;
+            caseRecord.noteValue = note;
         }
     }
 
@@ -102,7 +116,7 @@ export default class CaseCardRenderer extends LightningElement {
             caseRecord.noteValue = '';
         } catch (error) {
             this.dispatchEvent(new ShowToastEvent({
-                title: 'Error saving note',
+                title: 'Error Saving Note',
                 message: error.body ? error.body.message : error.message,
                 variant: 'error'
             }));
