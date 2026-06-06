@@ -9,14 +9,7 @@
                                        onchange={handleChange}
                                        type="radio">
                 </lightning-radio-group>
-                <div class="slds-m-top_medium">
-                    <lightning-button variant="brand" 
-                                      label="Submit" 
-                                      title="Submit" 
-                                      onclick={handleSubmit} 
-                                      disabled={isSubmitDisabled}>
-                    </lightning-button>
-                </div>
+
             </template>
             <template if:false={hasOptions}>
                 <p>No topics available.</p>

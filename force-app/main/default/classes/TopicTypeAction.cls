@@ -29,4 +29,13 @@ public with sharing class TopicTypeAction {
         }
         return results;
     }
+
+    @AuraEnabled(cacheable=true)
+    public static List<String> getAvailableTopicTypes() {
+        Set<String> uniqueTypes = new Set<String>();
+        for(Topic__c t : [SELECT Type_of_Topics__c FROM Topic__c WHERE Type_of_Topics__c != null]) {
+            uniqueTypes.add(t.Type_of_Topics__c);
+        }
+        return new List<String>(uniqueTypes);
+    }
 }

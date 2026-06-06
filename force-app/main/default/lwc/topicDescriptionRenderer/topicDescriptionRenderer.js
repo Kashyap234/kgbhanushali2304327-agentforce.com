@@ -2,7 +2,7 @@ import { LightningElement, api, track } from 'lwc';
 
 export default class TopicDescriptionRenderer extends LightningElement {
     @api _value;
-    @track description = '';
+    @track descriptions = [];
     @track debugValue = '';
 
     @api
@@ -18,12 +18,23 @@ export default class TopicDescriptionRenderer extends LightningElement {
             this.debugValue = 'Error stringifying';
         }
 
+        let rawDesc = '';
         if (v && v.topicDescription) {
-            this.description = v.topicDescription;
+            rawDesc = v.topicDescription;
         } else if (v && v.resultData && v.resultData.topicDescription) {
-            this.description = v.resultData.topicDescription;
-        } else {
-            this.description = '';
+            rawDesc = v.resultData.topicDescription;
         }
+
+        if (rawDesc) {
+            this.descriptions = rawDesc.split('|||').map((desc, index) => {
+                return { id: index, text: desc };
+            });
+        } else {
+            this.descriptions = [];
+        }
+    }
+
+    get hasDescriptions() {
+        return this.descriptions && this.descriptions.length > 0;
     }
 }

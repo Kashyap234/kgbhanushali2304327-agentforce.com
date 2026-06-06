@@ -19,9 +19,6 @@ language:
     all_additional_locales: False
 
 variables:
-    SelectedTopicType: mutable string
-        description: "The topic type selected by the user"
-        visibility: "Internal"
 
 start_agent agent_router:
     label: "Agent Router"
@@ -32,55 +29,18 @@ start_agent agent_router:
         instructions: ->
             | Select the best tool to call based on conversation history and user's intent.
         actions:
-            go_to_Welcome_Topic: @utils.transition to @subagent.Welcome_Topic
             go_to_Performing_Action_Topic: @utils.transition to @subagent.Performing_Action_Topic
-
-subagent Welcome_Topic:
-    label: "Welcome Topic"
-    description: "Greets the user and asks them to select a topic type using the Get Topic Types action."
-    reasoning:
-        instructions: ->
-            | Execute the Get_Topic_Types action. This action will automatically display the available topics to the user.
-            | Do NOT use the user_select_record tool or any other system tool to ask the user to select.
-            | Wait for the user to submit their selection.
-            | Once the user selects an option and submits, store their selection in the SelectedTopicType variable.
-            | Then transition to the Performing Action Topic.
-        actions:
-            Get_Topic_Types: @actions.Get_Topic_Types
-                with contextInput = "start"
-    actions:
-        Get_Topic_Types:
-            description: "Returns a list of unique topic types from the Topic__c object"
-            label: "Get Topic Types"
-            require_user_confirmation: False
-            include_in_progress_indicator: False
-            source: "Get_Topic_Types"
-            target: "apex://TopicTypeAction"
-            inputs:
-                "contextInput": string
-                    description: "Optional input parameter"
-                    label: "Context Input"
-                    is_required: False
-                    is_user_input: False
-            outputs:
-                "resultData": object
-                    description: "Topic Type Output"
-                    label: "Topic Type Output"
-                    is_displayable: True
-                    filter_from_agent: False
-                    complex_data_type_name: "c__topicSelection"
 
 subagent Performing_Action_Topic:
     label: "Performing Action Topic"
-    description: "Displays the description of the selected topic."
+    description: "Prompts the user to select a topic and displays the description of the selected topic."
     reasoning:
         instructions: ->
-            | Ensure that the SelectedTopicType variable is populated.
-            | Use the SelectedTopicType variable as the input to the Get_Topic_Description action.
-            | Execute the action to fetch and display the description of the topic.
+            | When the user wants to select a topic or view a topic description, execute the Get_Topic_Description action.
+            | This action will display a selection component. Wait for the user to select an option and submit it.
         actions:
             Get_Topic_Description: @actions.Get_Topic_Description
-                with topicType = @variables.SelectedTopicType
+                with topicInput = ...
     actions:
         Get_Topic_Description:
             description: "Returns the description for a given topic type"
@@ -90,11 +50,12 @@ subagent Performing_Action_Topic:
             source: "Get_Topic_Description"
             target: "apex://TopicDescAction"
             inputs:
-                "topicType": string
-                    description: "The selected Type_of_Topics__c value"
-                    label: "Topic Type"
+                "topicInput": object
+                    description: "The topic selected by the user"
+                    label: "Topic Input"
                     is_required: True
-                    is_user_input: False
+                    is_user_input: True
+                    complex_data_type_name: "c__topicSelection"
             outputs:
                 "resultData": object
                     description: "The wrapper for topic description"

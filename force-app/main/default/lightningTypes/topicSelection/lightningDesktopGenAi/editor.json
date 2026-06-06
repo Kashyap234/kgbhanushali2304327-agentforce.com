@@ -1,5 +1,5 @@
 {
-    "renderer": {
+    "editor": {
         "componentOverrides": {
             "$": {
                 "definition": "c/topicSelectionRenderer"

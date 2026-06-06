@@ -1,8 +1,8 @@
 public with sharing class TopicDescAction {
 
     public class Request {
-        @InvocableVariable(required=true description='The selected Type_of_Topics__c value')
-        public String topicType;
+        @InvocableVariable(required=true label='Topic Input' description='The selected topic input from user')
+        public TopicTypeWrapper topicInput;
     }
 
     public class Result {
@@ -18,17 +18,21 @@ public with sharing class TopicDescAction {
             Result res = new Result();
             res.resultData = new TopicDescWrapper();
             
-            // Query the description for the given topic type
-            // Assuming we take the first matching topic's description
+            // Query the descriptions for the given topic type
             List<Topic__c> topics = [
                 SELECT Description__c 
                 FROM Topic__c 
-                WHERE Type_of_Topics__c = :req.topicType 
-                LIMIT 1
+                WHERE Type_of_Topics__c = :req.topicInput.selectedTopic 
             ];
             
             if (!topics.isEmpty()) {
-                res.resultData.topicDescription = topics[0].Description__c;
+                List<String> descs = new List<String>();
+                for (Topic__c t : topics) {
+                    if (String.isNotBlank(t.Description__c)) {
+                        descs.add(t.Description__c);
+                    }
+                }
+                res.resultData.topicDescription = String.join(descs, '|||');
             } else {
                 res.resultData.topicDescription = 'No description found for this topic.';
             }

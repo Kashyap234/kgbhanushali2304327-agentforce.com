@@ -1,12 +1,18 @@
 <template>
     <lightning-card title="Topic Description">
         <div class="slds-p-around_medium">
-            <template if:true={description}>
+            <template if:true={hasDescriptions}>
                 <div class="slds-box slds-theme_default">
-                    <p class="slds-text-body_regular">{description}</p>
+                    <ul class="slds-list_dotted">
+                        <template for:each={descriptions} for:item="desc">
+                            <li key={desc.id} class="slds-m-bottom_x-small">
+                                <p class="slds-text-body_regular">{desc.text}</p>
+                            </li>
+                        </template>
+                    </ul>
                 </div>
             </template>
-            <template if:false={description}>
+            <template if:false={hasDescriptions}>
                 <p>No description found.</p>
                 <p style="font-size: 10px; color: gray;">Debug Value: {debugValue}</p>
             </template>
