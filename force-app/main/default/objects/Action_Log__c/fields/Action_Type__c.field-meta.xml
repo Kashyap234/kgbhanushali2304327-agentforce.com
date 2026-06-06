@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Type__c</fullName>
+    <label>Action Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Case Created</fullName>
+                <default>false</default>
+                <label>Case Created</label>
+            </value>
+            <value>
+                <fullName>Case Updated</fullName>
+                <default>false</default>
+                <label>Case Updated</label>
+            </value>
+            <value>
+                <fullName>Work Order Created</fullName>
+                <default>false</default>
+                <label>Work Order Created</label>
+            </value>
+            <value>
+                <fullName>Work Order Assigned</fullName>
+                <default>false</default>
+                <label>Work Order Assigned</label>
+            </value>
+            <value>
+                <fullName>Work Order Started</fullName>
+                <default>false</default>
+                <label>Work Order Started</label>
+            </value>
+            <value>
+                <fullName>Work Order Completed</fullName>
+                <default>false</default>
+                <label>Work Order Completed</label>
+            </value>
+            <value>
+                <fullName>Status Changed</fullName>
+                <default>false</default>
+                <label>Status Changed</label>
+            </value>
+            <value>
+                <fullName>Comment Added</fullName>
+                <default>false</default>
+                <label>Comment Added</label>
+            </value>
+            <value>
+                <fullName>Photo Uploaded</fullName>
+                <default>false</default>
+                <label>Photo Uploaded</label>
+            </value>
+            <value>
+                <fullName>Location Updated</fullName>
+                <default>false</default>
+                <label>Location Updated</label>
+            </value>
+            <value>
+                <fullName>Duplicate Detected</fullName>
+                <default>false</default>
+                <label>Duplicate Detected</label>
+            </value>
+            <value>
+                <fullName>AI Classification</fullName>
+                <default>false</default>
+                <label>AI Classification</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

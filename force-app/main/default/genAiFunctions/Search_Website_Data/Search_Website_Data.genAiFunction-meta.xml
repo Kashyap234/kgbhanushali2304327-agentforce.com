@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Search W3Schools tutorial data by keyword, category, or topic</description>
+    <developerName>Search_Website_Data</developerName>
     <invocationTarget>WebsiteDataSearchAction</invocationTarget>
     <invocationTargetType>apex</invocationTargetType>
     <isConfirmationRequired>false</isConfirmationRequired>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Updates a case record based on its case number with a provided description</description>
+    <developerName>Update_Case_Description</developerName>
+    <invocationTarget>UpdateCaseAction</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+    <localDeveloperName>Update_Case_Description</localDeveloperName>
+    <masterLabel>Update Case Description</masterLabel>
+</GenAiFunction>

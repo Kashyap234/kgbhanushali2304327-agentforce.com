@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Issue_Type__c</fullName>
+    <label>Issue Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pothole</fullName>
+                <default>false</default>
+                <label>Pothole</label>
+            </value>
+            <value>
+                <fullName>Water Issue</fullName>
+                <default>false</default>
+                <label>Water Issue</label>
+            </value>
+            <value>
+                <fullName>Waste Management</fullName>
+                <default>false</default>
+                <label>Waste Management</label>
+            </value>
+            <value>
+                <fullName>Streetlight</fullName>
+                <default>false</default>
+                <label>Streetlight</label>
+            </value>
+            <value>
+                <fullName>Traffic Signal</fullName>
+                <default>false</default>
+                <label>Traffic Signal</label>
+            </value>
+            <value>
+                <fullName>Drainage</fullName>
+                <default>false</default>
+                <label>Drainage</label>
+            </value>
+            <value>
+                <fullName>Parks &amp; Recreation</fullName>
+                <default>false</default>
+                <label>Parks &amp; Recreation</label>
+            </value>
+            <value>
+                <fullName>Noise Complaint</fullName>
+                <default>false</default>
+                <label>Noise Complaint</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

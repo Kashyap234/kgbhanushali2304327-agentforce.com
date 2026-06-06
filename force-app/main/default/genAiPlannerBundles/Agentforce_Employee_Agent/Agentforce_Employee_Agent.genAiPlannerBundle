@@ -30,17 +30,6 @@
             <functionName>Fetch_Case_Filters_179gK000001fb33</functionName>
         </localActionLinks>
         <localActions>
-            <fullName>Fetch_Case_Filters_179gK000001fb33</fullName>
-            <description>Accepts multiselect case status filters and returns matching cases as JSON</description>
-            <developerName>Fetch_Case_Filters_179gK000001fb33</developerName>
-            <invocationTarget>CaseFilterAction</invocationTarget>
-            <invocationTargetType>apex</invocationTargetType>
-            <isConfirmationRequired>false</isConfirmationRequired>
-            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
-            <localDeveloperName>Fetch_Case_Filters</localDeveloperName>
-            <masterLabel>Fetch Case Filters</masterLabel>
-        </localActions>
-        <localActions>
             <fullName>Update_Case_Description_179gK000001fb33</fullName>
             <description>Updates a case record based on its case number with a provided description</description>
             <developerName>Update_Case_Description_179gK000001fb33</developerName>
@@ -50,6 +39,17 @@
             <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
             <localDeveloperName>Update_Case_Description</localDeveloperName>
             <masterLabel>Update Case Description</masterLabel>
+        </localActions>
+        <localActions>
+            <fullName>Fetch_Case_Filters_179gK000001fb33</fullName>
+            <description>Accepts multiselect case status filters and returns matching cases as JSON</description>
+            <developerName>Fetch_Case_Filters_179gK000001fb33</developerName>
+            <invocationTarget>CaseFilterAction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Fetch_Case_Filters</localDeveloperName>
+            <masterLabel>Fetch Case Filters</masterLabel>
         </localActions>
         <localDeveloperName>Case_Management</localDeveloperName>
         <masterLabel>Case Management</masterLabel>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>account_creation_agent_queue_MessagingSession</fullName>
+    <filterScope>Queue</filterScope>
+    <label>account creation agent queue</label>
+    <queue>account_creation_agent_queue</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

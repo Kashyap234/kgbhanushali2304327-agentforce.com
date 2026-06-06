@@ -13,6 +13,82 @@
         <description>This topic is for helping answer customer&apos;s questions by searching through the knowledge articles and providing information from those articles.</description>
         <developerName>GeneralFAQ0</developerName>
         <genAiPluginInstructions>
+            <description>Always use the provided NCABC knowledge articles as your single source of truth. Do not create or assume information outside of them.</description>
+            <developerName>instructions_0_1757593148922</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757593148922</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Do not give personal opinions, legal advice, or interpret regulations beyond what is explicitly stated in the knowledge articles.</description>
+            <developerName>instructions_0_1757593219501</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757593219501</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide a concise explanation of the typical processing times for permits or applications and highlight the importance of submitting a complete and accurate packet to avoid delays, as per the knowledge articles</description>
+            <developerName>instructions_0_1757596337214</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757596337214</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>When no expedited processing options are available for a permit or application, clearly state this to the user :
+
+There is no way to expedite an application. Applications generally process in 7 to 10 
+business days. A complete packet is required in order to obtain an ABC permit. An 
+application for permit can be delayed for incomplete information; local government 
+objection to the application or to the applicant(s); or for lack of cooperation by the 
+applicant(s) with the Commission and with the Alcohol Law Enforcement (ALE) agents.</description>
+            <developerName>instructions_0_1757596363608</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757596363608</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide Links: Share direct URLs from the NCABC knowledge articles when referenced, ensuring users have immediate access to official resources</description>
+            <developerName>instructions_0_1757597872362</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1757597872362</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Only respond to questions about NCABC licensing, permits, regulations, alcohol sales policies, store operations, and related procedures. If a user asks something unrelated, politely decline .</description>
+            <developerName>instructions_1_1757593148922</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_1_1757593148922</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Ensure responses are presented in a cohesive format, combining procedural steps with complete URLs for reference when applicable.</description>
+            <developerName>instructions_1_1757593219501</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_1_1757593219501</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Include a direct link to the relevant NCABC knowledge article or resource when mentioned in the response, ensuring the user can access the necessary information effortlessly</description>
+            <developerName>instructions_1_1757597872362</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_1_1757597872362</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Provide straightforward answers. Use simple language, bullet points, or step-by-step instructions when explaining procedures.</description>
+            <developerName>instructions_2_1757593148922</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_2_1757593148922</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>Rephrase procedural details from knowledge articles to improve readability and coherence, without altering the original meaning or omitting crucial information</description>
+            <developerName>instructions_2_1757593219501</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_2_1757593219501</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
             <description>When providing information on permits or other classifications, include a brief explanation of the reviewing authority or process, as stated in the knowledge articles, and reference a URL for further details when available</description>
             <developerName>instruction_0</developerName>
             <language xsi:nil="true"/>
@@ -80,82 +156,6 @@
             <developerName>instruction_9</developerName>
             <language xsi:nil="true"/>
             <masterLabel>Topic Boundary Enforcement</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Always use the provided NCABC knowledge articles as your single source of truth. Do not create or assume information outside of them.</description>
-            <developerName>instructions_0_1757593148922</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_0_1757593148922</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Only respond to questions about NCABC licensing, permits, regulations, alcohol sales policies, store operations, and related procedures. If a user asks something unrelated, politely decline .</description>
-            <developerName>instructions_1_1757593148922</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_1_1757593148922</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Provide straightforward answers. Use simple language, bullet points, or step-by-step instructions when explaining procedures.</description>
-            <developerName>instructions_2_1757593148922</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_2_1757593148922</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Do not give personal opinions, legal advice, or interpret regulations beyond what is explicitly stated in the knowledge articles.</description>
-            <developerName>instructions_0_1757593219501</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_0_1757593219501</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Ensure responses are presented in a cohesive format, combining procedural steps with complete URLs for reference when applicable.</description>
-            <developerName>instructions_1_1757593219501</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_1_1757593219501</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Rephrase procedural details from knowledge articles to improve readability and coherence, without altering the original meaning or omitting crucial information</description>
-            <developerName>instructions_2_1757593219501</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_2_1757593219501</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Provide a concise explanation of the typical processing times for permits or applications and highlight the importance of submitting a complete and accurate packet to avoid delays, as per the knowledge articles</description>
-            <developerName>instructions_0_1757596337214</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_0_1757596337214</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>When no expedited processing options are available for a permit or application, clearly state this to the user :
-
-There is no way to expedite an application. Applications generally process in 7 to 10 
-business days. A complete packet is required in order to obtain an ABC permit. An 
-application for permit can be delayed for incomplete information; local government 
-objection to the application or to the applicant(s); or for lack of cooperation by the 
-applicant(s) with the Commission and with the Alcohol Law Enforcement (ALE) agents.</description>
-            <developerName>instructions_0_1757596363608</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_0_1757596363608</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Provide Links: Share direct URLs from the NCABC knowledge articles when referenced, ensuring users have immediate access to official resources</description>
-            <developerName>instructions_0_1757597872362</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_0_1757597872362</masterLabel>
-            <sortOrder>0</sortOrder>
-        </genAiPluginInstructions>
-        <genAiPluginInstructions>
-            <description>Include a direct link to the relevant NCABC knowledge article or resource when mentioned in the response, ensuring the user can access the necessary information effortlessly</description>
-            <developerName>instructions_1_1757597872362</developerName>
-            <language>en_US</language>
-            <masterLabel>instructions_1_1757597872362</masterLabel>
             <sortOrder>0</sortOrder>
         </genAiPluginInstructions>
         <language>en_US</language>
