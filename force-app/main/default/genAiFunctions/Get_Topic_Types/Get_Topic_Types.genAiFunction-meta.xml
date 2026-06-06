@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Returns a list of unique topic types from the Topic__c object</description>
+    <developerName>Get_Topic_Types</developerName>
+    <invocationTarget>TopicTypeAction</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+    <localDeveloperName>Get_Topic_Types</localDeveloperName>
+    <masterLabel>Get Topic Types</masterLabel>
+</GenAiFunction>

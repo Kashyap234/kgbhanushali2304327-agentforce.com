@@ -1,0 +1,14 @@
+{
+  "required" : [ "topicType" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "topicType" : {
+      "title" : "topicType",
+      "description" : "The selected Type_of_Topics__c value",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

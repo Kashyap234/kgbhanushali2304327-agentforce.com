@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Topic Description">
+        <div class="slds-p-around_medium">
+            <template if:true={description}>
+                <div class="slds-box slds-theme_default">
+                    <p class="slds-text-body_regular">{description}</p>
+                </div>
+            </template>
+            <template if:false={description}>
+                <p>No description found.</p>
+                <p style="font-size: 10px; color: gray;">Debug Value: {debugValue}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

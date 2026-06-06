@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Select a Topic">
+        <div class="slds-p-around_medium">
+            <template if:true={hasOptions}>
+                <lightning-radio-group name="topicGroup"
+                                       label="Available Topics"
+                                       options={options}
+                                       value={selectedValue}
+                                       onchange={handleChange}
+                                       type="radio">
+                </lightning-radio-group>
+                <div class="slds-m-top_medium">
+                    <lightning-button variant="brand" 
+                                      label="Submit" 
+                                      title="Submit" 
+                                      onclick={handleSubmit} 
+                                      disabled={isSubmitDisabled}>
+                    </lightning-button>
+                </div>
+            </template>
+            <template if:false={hasOptions}>
+                <p>No topics available.</p>
+                <!-- Debug info: -->
+                <p style="font-size: 10px; color: gray;">Debug Value: {debugValue}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Returns the description for a given topic type</description>
+    <developerName>Get_Topic_Description</developerName>
+    <invocationTarget>TopicDescAction</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+    <localDeveloperName>Get_Topic_Description</localDeveloperName>
+    <masterLabel>Get Topic Description</masterLabel>
+</GenAiFunction>
