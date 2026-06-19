@@ -19,6 +19,19 @@ language:
     all_additional_locales: False
 
 variables:
+    mapIndex: mutable object = {}
+        description: ""
+    IsProductSelected: mutable boolean = False
+        label: "IsProductSelected"
+        visibility: "External"
+        description: ""
+    IsInsuranceSelected: mutable boolean = False
+        label: "IsInsuranceSelected"
+        visibility: "External"
+        description: ""
+    Output_Message: mutable string
+        label: "Output Message"
+        visibility: "External"
 
 start_agent agent_router:
     label: "Agent Router"
@@ -27,20 +40,23 @@ start_agent agent_router:
         model: "model://sfdc_ai__DefaultEinsteinHyperClassifier"
     reasoning:
         instructions: ->
-            | Select the best tool to call based on conversation history and user's intent.
+            | Select the best tool to call based on conversation history and user's intent. Use {!@actions.go_to_Welcome_Topic} by default to present options, and route to other subagents when appropriate.
         actions:
             go_to_Performing_Action_Topic: @utils.transition to @subagent.Performing_Action_Topic
+            go_to_Welcome_Topic: @utils.transition to @subagent.Welcome_Topic
+            go_to_Demo_Subagent: @utils.transition to @subagent.Demo_Subagent
 
 subagent Performing_Action_Topic:
     label: "Performing Action Topic"
     description: "Prompts the user to select a topic and displays the description of the selected topic."
     reasoning:
         instructions: ->
-            | When the user wants to select a topic or view a topic description, execute the Get_Topic_Description action.
-            | This action will display a selection component. Wait for the user to select an option and submit it.
+            | When the user wants to select a topic or view a topic description, use {!@actions.Get_Topic_Description}. This action will display a selection component; wait for the user to select an option and submit it. The output contains the description and potentially a nextAction. If the user sets nextAction to 'Select Another Topic', call {!@actions.Get_Topic_Description} again.
         actions:
             Get_Topic_Description: @actions.Get_Topic_Description
                 with topicInput = ...
+
+
     actions:
         Get_Topic_Description:
             description: "Returns the description for a given topic type"
@@ -63,3 +79,93 @@ subagent Performing_Action_Topic:
                     is_displayable: True
                     filter_from_agent: False
                     complex_data_type_name: "c__topicDescription"
+
+subagent Welcome_Topic:
+    label: "Welcome Topic"
+    description: |
+
+        This is the Base default topic, which shows the available topic to show and make users to select the topic they need assistance on
+    reasoning:
+        instructions: ->
+            |Call this Action when ever user started the session with Agent, This topic executes the required actions to render the selection menu and route the user to the correct subagent. Call {!@actions.Topic_Selection_Process} to take the input from the component.
+        actions:
+            Topic_Selection_Process: @actions.Topic_Selection_Process
+                with inputs = ...
+                set @variables.IsInsuranceSelected = @outputs.IsInsuranceSelected
+                set @variables.IsProductSelected = @outputs.IsProductSelected
+    actions:
+        Topic_Selection_Process:
+            description: |
+                Receives the user topic selection from the LWC and returns boolean flags so the Agent Script can route to the correct subagent.
+            label: "Topic Selection Process"
+            require_user_confirmation: False
+            include_in_progress_indicator: False
+            source: "Topic_Selection_Process"
+            target: "apex://AFA_ProcessTopicSelection"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            inputs:
+                "inputs": object
+                    description: |
+                      Pass the input given by the user, Treat this like an input from the component
+                    label: "Topic Selection Input"
+                    is_required: True
+                    is_user_input: False
+                    complex_data_type_name: "c__CLT_ProcessTopicSelection"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+            outputs:
+                "IsInsuranceSelected": boolean
+                    description: |
+                      This shows whether the Insurance is selected or not
+                    label: "Is Insurance Selected"
+                    is_displayable: False
+                    filter_from_agent: False
+                "IsProductSelected": boolean
+                    description: |
+                      This shows whether the Product is selected or not
+                    label: "Is Product Selected"
+                    is_displayable: False
+                    filter_from_agent: False
+
+subagent Demo_Subagent:
+    label: "Demo Subagent"
+    description: |
+
+        This Subagent shows whether the IsProductselected or IsInsuranceSelected in the Agent's context
+    reasoning:
+        instructions: ->
+            |Call {!@actions.Process_Agent_UI_Selection} render the component first and take the input for the checkbox and Display the {!@variables.Output_Message}
+        actions:
+            Process_Agent_UI_Selection: @actions.Process_Agent_UI_Selection
+                with IsInsuranceSelected = @variables.IsInsuranceSelected
+                with IsProductSelected = @variables.IsProductSelected
+                with UserCheckboxInput = ...
+    actions:
+        Process_Agent_UI_Selection:
+            label: "Process Agent UI Selection"
+            description: |
+                        
+                This helps to know which context variable is set
+            target: "apex://AgentforceProductSelectionController"
+            inputs:
+                IsInsuranceSelected: boolean
+                    label: "IsInsuranceSelected"
+                    description: "Flag indicating if insurance context is active"
+                    is_required: True
+                    complex_data_type_name: "lightning__booleanType"
+                IsProductSelected: boolean
+                    label: "IsProductSelected"
+                    description: "Flag indicating if product context is active"
+                    is_required: True
+                    complex_data_type_name: "lightning__booleanType"
+                UserCheckboxInput: boolean
+                    label: "UserCheckboxInput"
+                    description: "The checkbox user input collected from the UI component"
+                    is_required: False
+                    complex_data_type_name: "lightning__booleanType"
+            outputs:
+                output: string
+                    label: "output"
+                    description: ""
+                    complex_data_type_name: "lightning__textType"
+                    is_displayable: False
+                    filter_from_agent: False

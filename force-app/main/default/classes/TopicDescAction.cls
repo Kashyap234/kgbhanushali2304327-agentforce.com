@@ -41,4 +41,25 @@ public with sharing class TopicDescAction {
         
         return results;
     }
+
+    @AuraEnabled
+    public static String getTopicDescriptionAura(String selectedTopic) {
+        List<Topic__c> topics = [
+            SELECT Description__c 
+            FROM Topic__c 
+            WHERE Type_of_Topics__c = :selectedTopic 
+        ];
+        
+        if (!topics.isEmpty()) {
+            List<String> descs = new List<String>();
+            for (Topic__c t : topics) {
+                if (String.isNotBlank(t.Description__c)) {
+                    descs.add(t.Description__c);
+                }
+            }
+            return String.join(descs, '|||');
+        } else {
+            return 'No description found for this topic.';
+        }
+    }
 }

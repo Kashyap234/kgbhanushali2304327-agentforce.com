@@ -1,4 +1,4 @@
 {
-  "title": "Topic Description",
-  "lightning:type": "@apexClassType/c__TopicDescWrapper"
+  "title" : "Topic Description",
+  "lightning:type" : "@apexClassType/c__TopicDescWrapper"
 }

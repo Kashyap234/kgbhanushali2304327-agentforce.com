@@ -1,9 +1,9 @@
 {
-    "editor": {
-        "componentOverrides": {
-            "$": {
-                "definition": "c/oppFilterEditor"
-            }
-        }
+  "editor" : {
+    "componentOverrides" : {
+      "$" : {
+        "definition" : "c/oppFilterEditor"
+      }
     }
+  }
 }

@@ -2,7 +2,7 @@
   "editor" : {
     "componentOverrides" : {
       "$" : {
-        "definition" : "c/topicSelectionRenderer"
+        "definition" : "c/agentforceSelectionEditor"
       }
     }
   }

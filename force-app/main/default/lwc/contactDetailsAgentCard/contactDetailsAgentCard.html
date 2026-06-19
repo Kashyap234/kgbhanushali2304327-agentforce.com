@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Contact Information" icon-name="standard:contact">
+        <div class="slds-var-p-horizontal_medium" if:true={value}>
+            <p class="slds-var-p-bottom_x-small"><strong>Name:</strong> {value.name}</p>
+            <p class="slds-var-p-bottom_x-small"><strong>Email:</strong> {value.email}</p>
+            <p class="slds-var-p-bottom_x-small"><strong>Phone:</strong> {value.phone}</p>
+            <p class="slds-var-p-bottom_x-small"><strong>Title:</strong> {value.title}</p>
+        </div>
+        <div class="slds-var-p-horizontal_medium" if:false={value}>
+            <p class="slds-text-color_error">No contact details were found for this email.</p>
+        </div>
+    </lightning-card>
+</template>

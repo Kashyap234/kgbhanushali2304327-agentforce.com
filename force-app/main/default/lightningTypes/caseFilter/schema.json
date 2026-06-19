@@ -1,4 +1,4 @@
 {
-  "title": "Case Filter",
-  "lightning:type": "@apexClassType/c__CaseFilterWrapper"
+  "title" : "Case Filter",
+  "lightning:type" : "@apexClassType/c__CaseFilterWrapper"
 }

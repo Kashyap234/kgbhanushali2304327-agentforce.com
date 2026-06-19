@@ -1,0 +1,27 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+
+            <!-- Heading -->
+            <div class="heading-text slds-m-bottom_medium">Select the Topic</div>
+
+            <!-- Topic Buttons -->
+            <div class="button-wrapper">
+                <button class={productButtonClass}
+                        data-value="Product"
+                        onclick={handleTopicClick}
+                        disabled={readOnly}>
+                    Product
+                </button>
+                <button class={insuranceButtonClass}
+                        data-value="Insurance"
+                        onclick={handleTopicClick}
+                        disabled={readOnly}>
+                    Insurance
+                </button>
+            </div>
+
+
+        </div>
+    </lightning-card>
+</template>

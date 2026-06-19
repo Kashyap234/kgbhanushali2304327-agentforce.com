@@ -1,9 +1,9 @@
 {
-    "editor": {
-        "componentOverrides": {
-            "$": {
-                "definition": "c/caseFilterEditor"
-            }
-        }
+  "editor" : {
+    "componentOverrides" : {
+      "$" : {
+        "definition" : "c/caseFilterEditor"
+      }
     }
+  }
 }

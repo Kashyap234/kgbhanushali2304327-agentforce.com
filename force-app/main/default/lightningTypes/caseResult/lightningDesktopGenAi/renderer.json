@@ -1,9 +1,9 @@
 {
-    "renderer": {
-        "componentOverrides": {
-            "$": {
-                "definition": "c/caseCardRenderer"
-            }
-        }
+  "renderer" : {
+    "componentOverrides" : {
+      "$" : {
+        "definition" : "c/caseCardRenderer"
+      }
     }
+  }
 }

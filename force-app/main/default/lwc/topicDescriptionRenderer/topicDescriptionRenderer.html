@@ -14,8 +14,12 @@
             </template>
             <template if:false={hasDescriptions}>
                 <p>No description found.</p>
+                <!-- Debug info: -->
                 <p style="font-size: 10px; color: gray;">Debug Value: {debugValue}</p>
             </template>
+            <div class="slds-m-top_medium slds-text-align_center">
+                <lightning-button label="Select Another Topic" variant="brand" onclick={handleSelectAnother}></lightning-button>
+            </div>
         </div>
     </lightning-card>
 </template>

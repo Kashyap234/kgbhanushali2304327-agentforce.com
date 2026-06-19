@@ -1,4 +1,4 @@
 {
-  "title": "Topic Selection",
-  "lightning:type": "@apexClassType/c__TopicTypeWrapper"
+  "title" : "Topic Selection",
+  "lightning:type" : "@apexClassType/c__TopicTypeWrapper"
 }

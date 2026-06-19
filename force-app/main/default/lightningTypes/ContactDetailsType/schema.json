@@ -1,0 +1,5 @@
+{
+    "title": "Contact Details Output",
+    "description": "Lightning Type to override the display of the Contact Details Wrapper",
+    "lightning:type": "@apexClassType/c__ContactDetailsWrapper"
+}

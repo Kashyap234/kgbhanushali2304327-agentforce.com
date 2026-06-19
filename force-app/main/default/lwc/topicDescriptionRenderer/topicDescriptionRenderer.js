@@ -1,40 +1,52 @@
 import { LightningElement, api, track } from 'lwc';
 
 export default class TopicDescriptionRenderer extends LightningElement {
-    @api _value;
-    @track descriptions = [];
-    @track debugValue = '';
+    @api sourceType;
 
     @api
     get value() {
         return this._value;
     }
+    set value(incoming) {
+        this._value = incoming;
+        this.parseValue(incoming);
+    }
 
-    set value(v) {
-        this._value = v;
-        try {
-            this.debugValue = JSON.stringify(v);
-        } catch(e) {
-            this.debugValue = 'Error stringifying';
+    @track descriptions = [];
+    @track debugValue = '';
+    _value = null;
+
+    parseValue(incoming) {
+        if (!incoming) {
+            this.debugValue = 'incoming is null';
+            return;
         }
 
-        let rawDesc = '';
-        if (v && v.topicDescription) {
-            rawDesc = v.topicDescription;
-        } else if (v && v.resultData && v.resultData.topicDescription) {
-            rawDesc = v.resultData.topicDescription;
-        }
+        this.debugValue = JSON.stringify(incoming);
 
-        if (rawDesc) {
-            this.descriptions = rawDesc.split('|||').map((desc, index) => {
-                return { id: index, text: desc };
-            });
-        } else {
+        if (!incoming.topicDescription) {
             this.descriptions = [];
+            return;
         }
+
+        const rawData = incoming.topicDescription;
+        if (rawData === 'No description found for this topic.') {
+            this.descriptions = [];
+            return;
+        }
+
+        const arr = rawData.split('|||');
+        this.descriptions = arr.map((item, index) => ({
+            id: String(index),
+            text: item
+        }));
     }
 
     get hasDescriptions() {
         return this.descriptions && this.descriptions.length > 0;
+    }
+
+    handleSelectAnother() {
+        console.log('Select another topic clicked. The org lacks lightning/accApi to dispatch a new bubble.');
     }
 }

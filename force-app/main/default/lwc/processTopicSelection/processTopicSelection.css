@@ -1,0 +1,47 @@
+/* ── Heading ── */
+.heading-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #444;
+}
+
+/* ── Pill button row ── */
+.button-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+}
+
+/* ── Pill base ── */
+.topic-pill {
+    border: 1px solid #0176D3;
+    border-radius: 20px;
+    padding: 6px 24px;
+    background-color: white;
+    color: #0176D3;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+}
+
+.topic-pill:hover {
+    background-color: #F3F3F3;
+}
+
+/* ── Selected state ── */
+.topic-pill.selected {
+    background-color: #0176D3;
+    color: white;
+}
+
+/* ── Disabled state ── */
+.topic-pill:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #E5E5E5;
+    border-color: #C9C9C9;
+    color: #747474;
+}

@@ -1,0 +1,34 @@
+<template>
+    <div class="slds-box slds-theme_default slds-p-around_medium">
+
+        <template if:true={isInsurance}>
+            <div class="slds-m-bottom_small">
+                <p class="slds-text-heading_small slds-text-color_success">Insurance Context Rendered</p>
+                <p><strong>IsInsuranceSelected:</strong> True</p>
+                <p><strong>IsProductSelected:</strong> False</p>
+            </div>
+        </template>
+
+        <template if:true={isProduct}>
+            <div class="slds-m-bottom_small">
+                <p class="slds-text-heading_small slds-text-color_weak">Product Context Rendered</p>
+                <p><strong>IsProductSelected:</strong> True</p>
+                <p><strong>IsInsuranceSelected:</strong> False</p>
+            </div>
+        </template>
+
+        <template if:true={noContextRecognized}>
+            <div class="slds-m-bottom_small">
+                <p class="slds-text-heading_small slds-text-color_error">No context flag was True (or value wasn't populated yet)</p>
+            </div>
+        </template>
+
+        <div class="slds-form-element slds-m-top_medium">
+            <lightning-input
+                type="checkbox"
+                label="Confirm Choice (Dummy Input Checkbox)"
+                onchange={handleCheckboxChange}>
+            </lightning-input>
+        </div>
+    </div>
+</template>
